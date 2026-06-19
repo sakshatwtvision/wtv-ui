@@ -1,0 +1,41 @@
+/* ------------------------------------------------------------------ *
+ * Demo brand override — Radix "Iris", scoped to `[data-brand='iris']`
+ *
+ * This is the same idea as examples/iris-theme.css, but scoped to an
+ * attribute on <html> so the demo can switch between the default Forma
+ * brand and Iris at runtime. When `data-brand` is anything other than
+ * `iris`, these rules don't match and the library's Forma defaults apply.
+ *
+ * The selectors are unlayered, so they beat the library's `@layer theme`
+ * tokens regardless of import order.
+ * ------------------------------------------------------------------ */
+
+/* Light theme — Radix `iris` (1 → 12 mapped light → dark) */
+:root[data-brand='iris'] {
+  --color-primary-50: #fdfdff; /* iris 1  */
+  --color-primary-100: #f8f8ff; /* iris 2  */
+  --color-primary-200: #f0f1fe; /* iris 3  */
+  --color-primary-300: #e6e7ff; /* iris 4  */
+  --color-primary-400: #cbcdff; /* iris 6  */
+  --color-primary-500: #9b9ef0; /* iris 8  */
+  --color-primary-600: #5b5bd6; /* iris 9  — solid brand (Button bg) */
+  --color-primary-700: #5151cd; /* iris 10 — hover */
+  --color-primary-800: #3f3f9e; /* darkened — active */
+  --color-primary-900: #272962; /* iris 12 — high-contrast text */
+  --color-primary-950: #1a1b40; /* darkened — deepest */
+}
+
+/* Dark theme — Radix `irisDark` (re-ordered light → dark to match) */
+[data-brand='iris'].dark {
+  --color-primary-50: #e0dffe; /* irisDark 12 */
+  --color-primary-100: #c9c6ff; /* interp 12→11 */
+  --color-primary-200: #b1a9ff; /* irisDark 11 */
+  --color-primary-300: #8e8bf0; /* interp 11→10 */
+  --color-primary-400: #6e6ade; /* irisDark 10 — :active */
+  --color-primary-500: #6363da; /* interp 10→9 — :hover */
+  --color-primary-600: #5b5bd6; /* irisDark 9  — solid brand (Button bg) */
+  --color-primary-700: #4a4a95; /* irisDark 7 */
+  --color-primary-800: #3d3e82; /* irisDark 6 */
+  --color-primary-900: #262a65; /* irisDark 4 */
+  --color-primary-950: #13131e; /* irisDark 1  — deepest surface */
+}

@@ -1,0 +1,341 @@
+@import "tailwindcss";
+@source "../**/*.{ts,tsx}";
+
+/* Class-based dark mode: `dark:` utilities apply under a `.dark` ancestor
+ * (toggle it on <html>). This overrides Tailwind's default media-query
+ * behaviour so the theme can be controlled explicitly. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ *
+ * Forma 36 — Design tokens
+ *
+ * Authentic token values from Contentful's Forma 36 design language
+ * (@contentful/f36-tokens), re-expressed as Tailwind v4 theme tokens.
+ *
+ * Every token here is exposed as a CSS custom property (e.g.
+ * `--color-primary-600`, `--radius-small`) *and* generates matching
+ * utilities (`bg-primary-600`, `rounded-small`, `text-medium`, ...).
+ *
+ * Naming follows Forma's vocabulary — full words like `small` / `medium`
+ * instead of `sm` / `md`, and kebab-case everywhere.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* -- Disable Tailwind's default palettes so only Forma colors exist -- */
+  --color-*: initial;
+
+  /* ---------------------------------- *
+   * Base
+   * ---------------------------------- */
+  --color-white: #ffffff;
+  --color-black: #0c141c;
+
+  /* ---------------------------------- *
+   * Gray
+   *
+   * Forma 36 ships 100–900. The 50 / 950 ends are derived here:
+   * 50  = the 100 step lightened 50% toward white,
+   * 950 = the 900 step darkened 40% toward black.
+   * ---------------------------------- */
+  --color-gray-50: #fbfcfd;
+  --color-gray-100: #f7f9fa;
+  --color-gray-200: #e7ebee;
+  --color-gray-300: #cfd9e0;
+  --color-gray-400: #aec1cc;
+  --color-gray-500: #67728a;
+  --color-gray-600: #5a657c;
+  --color-gray-700: #414d63;
+  --color-gray-800: #1b273a;
+  --color-gray-900: #111b2b;
+  --color-gray-950: #0a101a;
+
+  /* ---------------------------------- *
+   * Blue
+   * ---------------------------------- */
+  --color-blue-50: #f4faff;
+  --color-blue-100: #e8f5ff;
+  --color-blue-200: #ceecff;
+  --color-blue-300: #98cbff;
+  --color-blue-400: #40a0ff;
+  --color-blue-500: #036fe3;
+  --color-blue-600: #0059c8;
+  --color-blue-700: #0041ab;
+  --color-blue-800: #003298;
+  --color-blue-900: #002a8e;
+  --color-blue-950: #001955;
+
+  /* ---------------------------------- *
+   * Green
+   * ---------------------------------- */
+  --color-green-50: #f4fcf3;
+  --color-green-100: #eaf9e8;
+  --color-green-200: #cdf3c6;
+  --color-green-300: #9ed696;
+  --color-green-400: #5db057;
+  --color-green-500: #008539;
+  --color-green-600: #006d23;
+  --color-green-700: #00550c;
+  --color-green-800: #004700;
+  --color-green-900: #003f00;
+  --color-green-950: #002600;
+
+  /* ---------------------------------- *
+   * Red
+   * ---------------------------------- */
+  --color-red-50: #fff8f8;
+  --color-red-100: #fff2f2;
+  --color-red-200: #ffe0e0;
+  --color-red-300: #ffb1b2;
+  --color-red-400: #ff707d;
+  --color-red-500: #da294a;
+  --color-red-600: #bd002a;
+  --color-red-700: #990017;
+  --color-red-800: #7f0010;
+  --color-red-900: #72000e;
+  --color-red-950: #440008;
+
+  /* ---------------------------------- *
+   * Orange
+   * ---------------------------------- */
+  --color-orange-50: #fff8f1;
+  --color-orange-100: #fff2e4;
+  --color-orange-200: #fde5c0;
+  --color-orange-300: #fdb882;
+  --color-orange-400: #f07f23;
+  --color-orange-500: #cc4500;
+  --color-orange-600: #b12d00;
+  --color-orange-700: #892300;
+  --color-orange-800: #731a00;
+  --color-orange-900: #631c00;
+  --color-orange-950: #3b1100;
+
+  /* ---------------------------------- *
+   * Yellow
+   * ---------------------------------- */
+  --color-yellow-50: #fffcef;
+  --color-yellow-100: #fef9df;
+  --color-yellow-200: #fff6cc;
+  --color-yellow-300: #ffe993;
+  --color-yellow-400: #ffd960;
+  --color-yellow-500: #ffc835;
+  --color-yellow-600: #eaaf09;
+  --color-yellow-700: #b78300;
+  --color-yellow-800: #956300;
+  --color-yellow-900: #7f5200;
+  --color-yellow-950: #4c3100;
+
+  /* ---------------------------------- *
+   * Purple
+   * ---------------------------------- */
+  --color-purple-50: #fbf8ff;
+  --color-purple-100: #f7f2ff;
+  --color-purple-200: #ede3ff;
+  --color-purple-300: #d1bbff;
+  --color-purple-400: #ae89ff;
+  --color-purple-500: #8553e7;
+  --color-purple-600: #6c3ecf;
+  --color-purple-700: #5127b5;
+  --color-purple-800: #3e16a4;
+  --color-purple-900: #340e9c;
+  --color-purple-950: #1f085e;
+
+  /* ---------------------------------- *
+   * Semantic aliases (Forma intent colors)
+   * primary → blue · positive → green · negative → red · warning → orange
+   * These reference the palettes above so there is a single source of truth.
+   * ---------------------------------- */
+  --color-primary-50: var(--color-blue-50);
+  --color-primary-100: var(--color-blue-100);
+  --color-primary-200: var(--color-blue-200);
+  --color-primary-300: var(--color-blue-300);
+  --color-primary-400: var(--color-blue-400);
+  --color-primary-500: var(--color-blue-500);
+  --color-primary-600: var(--color-blue-600);
+  --color-primary-700: var(--color-blue-700);
+  --color-primary-800: var(--color-blue-800);
+  --color-primary-900: var(--color-blue-900);
+  --color-primary-950: var(--color-blue-950);
+
+  --color-positive-50: var(--color-green-50);
+  --color-positive-100: var(--color-green-100);
+  --color-positive-200: var(--color-green-200);
+  --color-positive-300: var(--color-green-300);
+  --color-positive-400: var(--color-green-400);
+  --color-positive-500: var(--color-green-500);
+  --color-positive-600: var(--color-green-600);
+  --color-positive-700: var(--color-green-700);
+  --color-positive-800: var(--color-green-800);
+  --color-positive-900: var(--color-green-900);
+  --color-positive-950: var(--color-green-950);
+
+  --color-negative-50: var(--color-red-50);
+  --color-negative-100: var(--color-red-100);
+  --color-negative-200: var(--color-red-200);
+  --color-negative-300: var(--color-red-300);
+  --color-negative-400: var(--color-red-400);
+  --color-negative-500: var(--color-red-500);
+  --color-negative-600: var(--color-red-600);
+  --color-negative-700: var(--color-red-700);
+  --color-negative-800: var(--color-red-800);
+  --color-negative-900: var(--color-red-900);
+  --color-negative-950: var(--color-red-950);
+
+  --color-warning-50: var(--color-orange-50);
+  --color-warning-100: var(--color-orange-100);
+  --color-warning-200: var(--color-orange-200);
+  --color-warning-300: var(--color-orange-300);
+  --color-warning-400: var(--color-orange-400);
+  --color-warning-500: var(--color-orange-500);
+  --color-warning-600: var(--color-orange-600);
+  --color-warning-700: var(--color-orange-700);
+  --color-warning-800: var(--color-orange-800);
+  --color-warning-900: var(--color-orange-900);
+  --color-warning-950: var(--color-orange-950);
+
+  /* ---------------------------------- *
+   * Spacing — Forma scale (xs → 2xl), spelled out
+   * ---------------------------------- */
+  --spacing-x-small: 0.5rem;
+  --spacing-small: 0.75rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 1.5rem;
+  --spacing-x-large: 2rem;
+  --spacing-2x-large: 3rem;
+
+  /* ---------------------------------- *
+   * Border radius
+   *
+   * Forma 36 officially ships small (4px) and medium (6px). Modern product
+   * UIs (e.g. lu.ma) read as much "softer" because the default control radius
+   * is larger, so `medium` — the step every control uses by default — is
+   * relaxed to 10px. The scale is then *extended* upward with the same word
+   * naming (large → 2x-large → full), exactly how the gray 50/950 ends were
+   * derived: extending the concept, never replacing it. Change a value here
+   * and every Button / TextInput / block softens with zero component edits.
+   * ---------------------------------- */
+  --radius-small: 4px;
+  --radius-medium: 16px;
+  --radius-large: 24px;
+  --radius-x-large: 32px;
+  --radius-2x-large: 40px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------- *
+   * Typography — font family
+   * ---------------------------------- */
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  /* ---------------------------------- *
+   * Typography — font size (paired with Forma line-heights)
+   * ---------------------------------- */
+  --text-small: 0.75rem;
+  --text-small--line-height: 1rem;
+  --text-medium: 0.875rem;
+  --text-medium--line-height: 1.25rem;
+  --text-large: 1rem;
+  --text-large--line-height: 1.5rem;
+  --text-x-large: 1.25rem;
+  --text-x-large--line-height: 2rem;
+  --text-2x-large: 1.5rem;
+  --text-2x-large--line-height: 2.25rem;
+  --text-3x-large: 2.25rem;
+  --text-3x-large--line-height: 3rem;
+  --text-4x-large: 3rem;
+  --text-4x-large--line-height: 3.5rem;
+
+  /* ---------------------------------- *
+   * Typography — font weight
+   * ---------------------------------- */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-demi-bold: 600;
+
+  /* ---------------------------------- *
+   * Typography — line height
+   * ---------------------------------- */
+  --leading-condensed: 1.25;
+  --leading-default: 1.5;
+
+  /* ---------------------------------- *
+   * Box shadows
+   * ---------------------------------- */
+  --shadow-positive: 0px 1px 0px rgba(25, 37, 50, 0.1);
+  --shadow-default:
+    0px 0px 0px 1px rgba(25, 37, 50, 0.1), 0px 3px 7px -3px rgba(25, 37, 50, 0.1),
+    0px 6px 12px -2px rgba(25, 37, 50, 0.1);
+  --shadow-heavy:
+    0px 0px 0px 1px rgba(25, 37, 50, 0.1), 0px -6px 16px -6px rgba(25, 37, 50, 0.03),
+    0px 8px 16px -8px rgba(25, 37, 50, 0.2), 0px 13px 27px -5px rgba(25, 37, 50, 0.15);
+
+  /* ---------------------------------- *
+   * Focus ring — Forma uses a soft blue glow
+   * ---------------------------------- */
+  --color-focus: var(--color-blue-500);
+}
+
+/* Sensible document defaults aligned to Forma's base body type. */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  :root:where(.dark) {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-medium);
+    line-height: var(--leading-default);
+    color: var(--color-black);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body:where(.dark, .dark *) {
+    color: var(--color-white);
+    background-color: var(--color-black);
+  }
+
+  /* Smooth "squircle" corners (Apple / lu.ma style). A plain `border-radius`
+   * draws a circular arc; `corner-shape: squircle` replaces it with a
+   * continuous superellipse, which is what makes the rounding read as soft
+   * rather than a hard quarter-circle. It only takes effect where a radius is
+   * already set, so applying it globally simply upgrades every rounded element
+   * (Button, TextInput, blocks) with zero component edits.
+   *
+   * Progressive enhancement: guarded by @supports, so Chromium gets the
+   * squircle while Safari/Firefox keep the normal arc until they ship it. */
+  @supports (corner-shape: squircle) {
+    *,
+    *::before,
+    *::after {
+      corner-shape: squircle;
+    }
+
+    /* Pills / circles are the exception: a squircle with a huge radius flattens
+     * its sides into a stadium shape instead of curving into a true semicircle,
+     * so `rounded-full` never reads as fully round. Restore the plain arc for
+     * anything explicitly asking for full roundedness. The `.rounded-full` class
+     * (specificity 0,1,0) overrides the `*` rule above (0,0,0). */
+    .rounded-full,
+    .rounded-full::before,
+    .rounded-full::after {
+      corner-shape: round;
+    }
+  }
+}
+
+:root {
+  --color-card: var(--color-gray-100);
+}
+
+:root:where(.dark) {
+  --color-card: var(--color-gray-900);
+}
+
+@utility bg-card {
+  background-color: var(--color-card);
+}

@@ -1,0 +1,49 @@
+/* ------------------------------------------------------------------ *
+ * Example consumer override — remap the `primary` brand to Radix "Iris"
+ *
+ * Drop this into a consuming app *after* importing the library styles:
+ *
+ *   @import '@wtv/ui/styles';   // your library's style.css
+ *   @import './iris-theme.css'; // this file — wins by cascade order
+ *
+ * Nothing in the component library changes. Because every `primary`
+ * utility resolves to `var(--color-primary-*)`, re-pointing those
+ * variables reskins every Button (and any future component) instantly,
+ * in both light and dark mode.
+ *
+ * Convention preserved: 50 = lightest, 950 = darkest, in BOTH themes.
+ * The brand "solid" (Radix step 9, #5b5bd6) stays at 600 in both, so
+ * the Button's base/hover/active behaviour keeps working unchanged.
+ * Radix's light vs dark scales differ mainly in the tint/surface ends,
+ * which is why the .dark block re-points the same slots to irisDark.
+ * ------------------------------------------------------------------ */
+
+/* Light theme — Radix `iris` (1 → 12 mapped light → dark) */
+:root {
+  --color-primary-50: #fdfdff; /* iris 1  */
+  --color-primary-100: #f8f8ff; /* iris 2  */
+  --color-primary-200: #f0f1fe; /* iris 3  */
+  --color-primary-300: #e6e7ff; /* iris 4  */
+  --color-primary-400: #cbcdff; /* iris 6  */
+  --color-primary-500: #9b9ef0; /* iris 8  */
+  --color-primary-600: #5b5bd6; /* iris 9  — solid brand (Button bg)   */
+  --color-primary-700: #5151cd; /* iris 10 — hover                     */
+  --color-primary-800: #3f3f9e; /* darkened iris 10/12 — active        */
+  --color-primary-900: #272962; /* iris 12 — high-contrast text        */
+  --color-primary-950: #1a1b40; /* darkened — deepest                  */
+}
+
+/* Dark theme — Radix `irisDark` (re-ordered light → dark to match) */
+.dark {
+  --color-primary-50: #e0dffe; /* irisDark 12 */
+  --color-primary-100: #c9c6ff; /* interp 12→11 */
+  --color-primary-200: #b1a9ff; /* irisDark 11 */
+  --color-primary-300: #8e8bf0; /* interp 11→10 */
+  --color-primary-400: #6e6ade; /* irisDark 10 — :active (lighter)     */
+  --color-primary-500: #6363da; /* interp 10→9 — :hover (lighter)      */
+  --color-primary-600: #5b5bd6; /* irisDark 9  — solid brand (Button bg) */
+  --color-primary-700: #4a4a95; /* irisDark 7 */
+  --color-primary-800: #3d3e82; /* irisDark 6 */
+  --color-primary-900: #262a65; /* irisDark 4 */
+  --color-primary-950: #13131e; /* irisDark 1  — deepest surface       */
+}
