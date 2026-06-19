@@ -4,10 +4,12 @@ import { extendTailwindMerge } from 'tailwind-merge';
 /**
  * tailwind-merge only knows Tailwind's *default* scale names (`text-sm`,
  * `rounded-md`, ...). Forma 36 renames those scales to full words
- * (`text-medium`, `rounded-small`, `px-x-small`, `font-demi-bold`), so we
- * teach tailwind-merge about them. Without this, a class like `text-small`
- * (a font-size) would be mistaken for a text *color* and would wrongly
- * cancel out `text-white`.
+ * (`text-medium`, `rounded-small`, `px-x-small`), so we teach tailwind-merge
+ * about them. Without this, a class like `text-small` (a font-size) would be
+ * mistaken for a text *color* and would wrongly cancel out `text-white`.
+ *
+ * Font weights use Tailwind's standard names (`font-medium`, `font-semibold`,
+ * …), which tailwind-merge already knows — so no font-weight extension here.
  */
 const twMerge = extendTailwindMerge({
   extend: {
@@ -22,9 +24,9 @@ const twMerge = extendTailwindMerge({
         '3x-large',
         '4x-large',
       ],
-      // border-radius scale → `rounded-small`, `rounded-medium`, … `rounded-2x-large`
-      // (`rounded-full` is already a tailwind-merge default, so it isn't listed)
-      radius: ['small', 'medium', 'large', 'x-large', '2x-large'],
+      // border-radius scale → `rounded-x-small`, `rounded-small`, … `rounded-2x-large`
+      // (`rounded-none` / `rounded-full` are tailwind-merge defaults, so omitted)
+      radius: ['x-small', 'small', 'medium', 'large', 'x-large', '2x-large'],
       // spacing scale → `px-small`, `gap-x-small`, `py-2x-large`, ...
       spacing: [
         'x-small',
@@ -34,10 +36,6 @@ const twMerge = extendTailwindMerge({
         'x-large',
         '2x-large',
       ],
-    },
-    classGroups: {
-      // font-weight scale → `font-demi-bold` (`font-normal`/`font-medium` known)
-      'font-weight': [{ font: ['demi-bold'] }],
     },
   },
 });

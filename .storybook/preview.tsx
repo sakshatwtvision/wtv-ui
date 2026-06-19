@@ -73,6 +73,13 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    // Keep the narrative "Getting Started" page pinned to the top of the
+    // sidebar, ahead of the component and block sections.
+    options: {
+      storySort: {
+        order: ["Getting Started", "Components", "Blocks"],
+      },
+    },
   },
 };
 

@@ -22,7 +22,7 @@ function panel(label: string, className: string) {
     <div
       className={cn(
         "flex h-full w-full items-center justify-center",
-        "text-x-large font-demi-bold text-white select-none",
+        "text-x-large font-semibold text-white select-none",
         className,
       )}
     >

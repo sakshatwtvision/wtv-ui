@@ -95,7 +95,7 @@ export const SignInCard: Story = {
   render: (args) => (
     <div className="flex w-80 flex-col gap-medium rounded-large border border-gray-200 p-x-large dark:border-gray-700">
       <div className="flex flex-col gap-x-small">
-        <h2 className="text-x-large font-demi-bold text-gray-900 dark:text-gray-50">
+        <h2 className="text-x-large font-semibold text-gray-900 dark:text-gray-50">
           Welcome back
         </h2>
         <p className="text-medium text-gray-500 dark:text-gray-400">
