@@ -1,8 +1,11 @@
 import * as React from "react";
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
-import { RadioGroupCtx } from "./RadioGroupContext";
 import { cn } from "../../utils/cn";
+
+// Shared with RadioGroup — true when Radio is rendered inside a <RadioGroup>.
+// eslint-disable-next-line react-refresh/only-export-components
+export const RadioGroupCtx = React.createContext(false);
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -27,7 +30,10 @@ export type RadioProps = Omit<RadioPrimitive.Root.Props, "onChange"> & {
 
 // ─── Inner control (always rendered inside some RadioGroup context) ───────────
 
-type RadioItemProps = Omit<RadioProps, "isChecked" | "defaultChecked" | "onChange">;
+type RadioItemProps = Omit<
+  RadioProps,
+  "isChecked" | "defaultChecked" | "onChange"
+>;
 
 function RadioItem({
   "aria-label": ariaLabel,
@@ -69,15 +75,13 @@ function RadioItem({
           "transition-colors duration-100",
           "outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1",
           "ring-offset-white dark:ring-offset-gray-950",
-          // Unchecked
           "border-gray-400 bg-white",
           "dark:border-gray-600 dark:bg-gray-900",
-          // Checked — Base UI sets data-checked="" when this item is selected
+          // Base UI sets data-checked="" when this item is selected
           "data-[checked]:border-primary-600 data-[checked]:bg-primary-600",
           "dark:data-[checked]:border-primary-500 dark:data-[checked]:bg-primary-500",
-          // Disabled — Base UI sets data-disabled="" when group or item is disabled
+          // Base UI sets data-disabled="" when group or item is disabled
           "data-[disabled]:cursor-not-allowed",
-          // Invalid
           isInvalid && ["border-negative-600", "dark:border-negative-500"],
         )}
         {...props}
@@ -101,47 +105,13 @@ function RadioItem({
             </span>
           )}
           {helpText && (
-            <span className="text-small text-gray-500 dark:text-gray-400">{helpText}</span>
+            <span className="text-small text-gray-500 dark:text-gray-400">
+              {helpText}
+            </span>
           )}
         </span>
       )}
     </label>
-  );
-}
-
-// ─── Standalone wrapper (manages own RadioGroup context) ──────────────────────
-
-function StandaloneRadio({
-  value: valueProp,
-  isChecked,
-  defaultChecked = false,
-  onChange,
-  isDisabled,
-  disabled,
-  ...rest
-}: RadioProps) {
-  // Use a stable sentinel when value is omitted so the group has something to match.
-  const radioValue = valueProp ?? "__radio__";
-
-  const [internalValue, setInternalValue] = React.useState<string>(
-    defaultChecked ? radioValue : "",
-  );
-
-  // Controlled: isChecked drives visual state; uncontrolled: internalValue does.
-  const groupValue =
-    isChecked !== undefined ? (isChecked ? radioValue : "") : internalValue;
-
-  return (
-    <RadioGroupPrimitive
-      value={groupValue}
-      onValueChange={(v) => {
-        if (isChecked === undefined) setInternalValue(v);
-        onChange?.(v === radioValue);
-      }}
-      disabled={isDisabled || disabled}
-    >
-      <RadioItem value={radioValue} isDisabled={isDisabled} disabled={disabled} {...rest} />
-    </RadioGroupPrimitive>
   );
 }
 
@@ -156,14 +126,55 @@ function StandaloneRadio({
  * **Group use** — place inside a `<RadioGroup>`. The group manages which value
  * is selected; `isChecked` / `defaultChecked` / `onChange` are ignored.
  */
-export function Radio(props: RadioProps) {
+export function Radio({
+  isChecked,
+  defaultChecked = false,
+  onChange,
+  value,
+  isDisabled,
+  disabled,
+  ...itemProps
+}: RadioProps) {
   const inGroup = React.useContext(RadioGroupCtx);
+  const standaloneValue = value ?? "__radio__";
 
-  if (!inGroup) {
-    return <StandaloneRadio {...props} />;
+  const [internalValue, setInternalValue] = React.useState(
+    defaultChecked ? standaloneValue : "",
+  );
+
+  const groupValue =
+    isChecked !== undefined
+      ? isChecked
+        ? standaloneValue
+        : ""
+      : internalValue;
+
+  if (inGroup) {
+    return (
+      <RadioItem
+        value={value}
+        isDisabled={isDisabled}
+        disabled={disabled}
+        {...itemProps}
+      />
+    );
   }
 
-  // Strip standalone-only props before passing to the inner control.
-  const { isChecked: _ic, defaultChecked: _dc, onChange: _oc, ...rest } = props;
-  return <RadioItem {...rest} />;
+  return (
+    <RadioGroupPrimitive
+      value={groupValue}
+      onValueChange={(v) => {
+        if (isChecked === undefined) setInternalValue(v);
+        onChange?.(v === standaloneValue);
+      }}
+      disabled={isDisabled || disabled}
+    >
+      <RadioItem
+        value={standaloneValue}
+        isDisabled={isDisabled}
+        disabled={disabled}
+        {...itemProps}
+      />
+    </RadioGroupPrimitive>
+  );
 }

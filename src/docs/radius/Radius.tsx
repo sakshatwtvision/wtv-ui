@@ -9,9 +9,9 @@
  * renders real library components (TextInput + Button) with a radius override
  * via className — which doubles as proof of the "extend via className" story.
  */
-import { Button } from "../components/Button";
-import { TextInput } from "../components/TextInput";
-import { cn } from "../utils/cn";
+import { Button } from "../../components/button";
+import { TextInput } from "../../components/text-input";
+import { cn } from "../../utils/cn";
 import {
   Code,
   CodeBlock,
@@ -21,7 +21,7 @@ import {
   DocText,
   DocTable,
   ValueChip,
-} from "./doc-ui";
+} from "../doc-ui";
 
 /* The full radius scale. Values mirror the `--radius-*` tokens in
  * src/styles/style.css (the single source of truth). */

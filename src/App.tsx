@@ -1,4 +1,4 @@
-import { Login } from "./blocks/Login";
+import { Login } from "./blocks/login/Login";
 
 export default function App() {
   return <Login />;

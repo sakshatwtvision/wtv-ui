@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Separator } from "./Separator";
-import { SocialButton } from "../SocialButton";
-import { Button } from "../Button";
-import { TextInput } from "../TextInput";
+import { SocialButton } from "../social-button";
+import { Button } from "../button";
+import { TextInput } from "../text-input";
 
 const meta = {
   title: "Components/Separator",

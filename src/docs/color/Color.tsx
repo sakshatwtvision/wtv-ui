@@ -8,7 +8,7 @@
  * …) rather than inline `var(--…)`, so Tailwind's scanner generates them and
  * there is nothing to safelist.
  */
-import { cn } from "../utils/cn";
+import { cn } from "../../utils/cn";
 import {
   Code,
   CodeBlock,
@@ -16,7 +16,7 @@ import {
   DocPage,
   DocSection,
   DocText,
-} from "./doc-ui";
+} from "../doc-ui";
 
 /* ---- The 7 base colors (closed palette) ---- */
 const BASE_COLORS = [

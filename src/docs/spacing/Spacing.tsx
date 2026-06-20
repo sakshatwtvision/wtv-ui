@@ -8,7 +8,7 @@
  * so Tailwind generates them from the named spacing tokens — the bar's width is
  * the real token value, never a hand-set pixel number.
  */
-import { cn } from "../utils/cn";
+import { cn } from "../../utils/cn";
 import {
   Code,
   CodeBlock,
@@ -18,7 +18,7 @@ import {
   DocText,
   DocTable,
   ValueChip,
-} from "./doc-ui";
+} from "../doc-ui";
 
 /* The 6-step spacing scale, spelled out in full words. Values mirror the
  * `--spacing-*` tokens in src/styles/style.css (the single source of truth). */

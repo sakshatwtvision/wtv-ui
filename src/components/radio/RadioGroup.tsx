@@ -1,5 +1,5 @@
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
-import { RadioGroupCtx } from "./RadioGroupContext";
+import { RadioGroupCtx } from "./Radio";
 import { cn } from "../../utils/cn";
 
 // Omit the native div `onChange` to replace it with Forma's value-based signature.
@@ -34,7 +34,9 @@ export function RadioGroup({
         data-testid={testId}
         className={cn(
           "flex",
-          direction === "row" ? "flex-row flex-wrap gap-medium" : "flex-col gap-small",
+          direction === "row"
+            ? "flex-row flex-wrap gap-medium"
+            : "flex-col gap-small",
           className,
         )}
         {...props}

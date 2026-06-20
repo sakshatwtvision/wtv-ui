@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ArrowRight, Plus, SearchIcon } from "lucide-react";
-import { TextInput } from "../TextInput";
+import { TextInput } from "../text-input";
 import { Button } from "./Button";
 
 const meta = {

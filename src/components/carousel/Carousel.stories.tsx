@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
-import { Carousel } from "./index";
+import { Carousel } from ".";
 
 /* -------------------------------------------------------------------------- */
 /* Demo slides — Forma palette panels standing in for real imagery            */

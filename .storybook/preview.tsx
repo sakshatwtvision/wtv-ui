@@ -77,7 +77,12 @@ const preview: Preview = {
     // sidebar, ahead of the component and block sections.
     options: {
       storySort: {
-        order: ["Getting Started", "Components", "Blocks"],
+        order: [
+          "Getting Started",
+          ["Color", "Spacing", "Radius", "Shadow"],
+          "Components",
+          "Blocks",
+        ],
       },
     },
   },

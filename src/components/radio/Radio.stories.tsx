@@ -1,5 +1,5 @@
+import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
 import { Radio } from "./Radio";
 import { RadioGroup } from "./RadioGroup";
 
@@ -57,7 +57,11 @@ export const Disabled: Story = {
 };
 
 export const DisabledChecked: Story = {
-  args: { isDisabled: true, defaultChecked: true, children: "Disabled checked" },
+  args: {
+    isDisabled: true,
+    defaultChecked: true,
+    children: "Disabled checked",
+  },
 };
 
 export const Invalid: Story = {
@@ -189,7 +193,8 @@ export const GroupDisabled: Story = {
 export const GroupControlled: Story = {
   parameters: { layout: "padded" },
   render: () => {
-    const [value, setValue] = useState("sms");
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [value, setValue] = React.useState("sms");
 
     return (
       <div className="flex flex-col gap-small">

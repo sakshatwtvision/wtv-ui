@@ -1,4 +1,4 @@
-import { Button, type ButtonProps } from "../Button";
+import { Button, type ButtonProps } from "../button";
 
 // ─── Provider icons ───────────────────────────────────────────────────────────
 // Inline SVGs keep the colored logos crisp at every DPI without an extra
