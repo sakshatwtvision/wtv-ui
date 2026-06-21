@@ -23,9 +23,9 @@ const badgeVariants = cva(
         purple: "",
       },
       size: {
-        small: "h-5 gap-0.5 px-x-small text-small [&_svg]:size-3",
-        medium: "h-6 gap-1 px-small text-small [&_svg]:size-3",
-        large: "h-7 gap-1 px-small text-medium [&_svg]:size-3.5",
+        small: "h-5 gap-0.5 px-x-small text-x-small [&_svg]:size-3",
+        medium: "h-6 gap-1 px-small text-x-small [&_svg]:size-3",
+        large: "h-7 gap-1 px-small text-small [&_svg]:size-3.5",
       },
     },
     compoundVariants: [

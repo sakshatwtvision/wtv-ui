@@ -201,22 +201,18 @@
   --radius-full: 9999px;
 
   /* ---------------------------------- *
-   * Typography — font size (paired with Forma line-heights)
+   * Typography — font size (1:1 with Text `size` variants)
    * ---------------------------------- */
-  --text-small: 0.75rem;
-  --text-small--line-height: 1rem;
-  --text-medium: 0.875rem;
-  --text-medium--line-height: 1.25rem;
-  --text-large: 1rem;
-  --text-large--line-height: 1.5rem;
-  --text-x-large: 1.25rem;
-  --text-x-large--line-height: 2rem;
-  --text-2x-large: 1.5rem;
-  --text-2x-large--line-height: 2.25rem;
-  --text-3x-large: 2.25rem;
-  --text-3x-large--line-height: 3rem;
-  --text-4x-large: 3rem;
-  --text-4x-large--line-height: 3.5rem;
+  --text-2x-small: 0.625rem; /* 10px */
+  --text-x-small: 0.75rem; /* 12px */
+  --text-small: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-medium: 1.125rem; /* 18px */
+  --text-large: 1.25rem; /* 20px */
+  --text-x-large: 1.5rem; /* 24px */
+  --text-2x-large: 1.75rem; /* 28px */
+  --text-3x-large: 2rem; /* 32px */
+  --text-4x-large: 2.5rem; /* 40px */
 
   /* ---------------------------------- *
    * Font weight
@@ -270,7 +266,7 @@
   body {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: var(--text-medium);
+    font-size: var(--text-base);
     line-height: var(--leading-default);
     color: var(--color-black);
     background-color: var(--color-white);

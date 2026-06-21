@@ -151,7 +151,7 @@ export function PrevTrigger({
         prev();
         onClick?.(e);
       }}
-      className={cn("rounded-full", className)}
+      className={cn("cursor-pointer rounded-full", className)}
       {...props}
     >
       {children}
@@ -179,7 +179,7 @@ export function NextTrigger({
         next();
         onClick?.(e);
       }}
-      className={cn("rounded-full", className)}
+      className={cn("cursor-pointer rounded-full", className)}
       {...props}
     >
       {children}
@@ -225,7 +225,7 @@ export function Indicator({
         goTo(index);
         onClick?.(e);
       }}
-      className={cn("rounded-full", className)}
+      className={cn("cursor-pointer rounded-full", className)}
       {...props}
     />
   );

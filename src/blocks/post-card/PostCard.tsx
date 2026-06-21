@@ -11,6 +11,13 @@ import { Badge } from "../../components/badge";
 import { Separator } from "../../components/separator";
 import { TextInput } from "../../components/text-input";
 import { cn } from "../../utils/cn";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Text,
+} from "../../components";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -55,9 +62,9 @@ function UserAvatar({
     .toUpperCase();
 
   const sizeClass = {
-    sm: "size-7 text-small",
-    md: "size-10 text-medium",
-    lg: "size-14 text-large",
+    sm: "size-7 text-x-small",
+    md: "size-10 text-small",
+    lg: "size-14 text-base",
   }[size];
 
   return user.avatarUrl ? (
@@ -118,158 +125,127 @@ export function PostCard({
         className,
       )}
     >
-      {/* ── Header ── */}
-      <div className="flex items-start gap-medium p-large pb-medium">
-        <UserAvatar user={toUser} size="lg" />
-
-        <div className="flex min-w-0 flex-1 flex-col gap-x-small">
-          {/* Title + points badge */}
-          <div className="flex flex-wrap items-center gap-small">
-            <h3 className="text-large font-semibold text-gray-900 dark:text-white">
-              {title}
-            </h3>
-            {points !== undefined && (
-              <Badge color="yellow" variant="default" size="small">
-                ⭐ {points.toLocaleString()}
-              </Badge>
-            )}
-          </div>
-
-          {/* From → To */}
-          <div className="flex flex-wrap items-center gap-x-small text-medium text-gray-600 dark:text-gray-300">
-            <UserAvatar user={fromUser} size="sm" />
-            <span className="font-medium">{fromUser.name}</span>
-            <ArrowRightIcon
-              className="size-3.5 shrink-0 text-gray-400 dark:text-gray-500"
-              aria-hidden
-            />
-            <UserAvatar user={toUser} size="sm" />
-            <span className="font-medium">{toUser.name}</span>
-          </div>
-        </div>
-
-        {/* Date + actions */}
-        <div className="flex shrink-0 items-center gap-x-small">
-          <div className="flex items-center gap-x-small text-small text-gray-500 dark:text-gray-500">
-            <ClockIcon className="size-3.5 shrink-0" aria-hidden />
-            <span>{date}</span>
+      <div className="p-small sm:p-medium">
+        <div className="flex justify-between gap-small">
+          <div className="flex min-w-0 gap-small sm:gap-medium">
+            <Avatar size="large">
+              <AvatarImage
+                src="https://avatars.githubusercontent.com/u/124599?v=4"
+                alt="avatar-image"
+              />
+              <AvatarFallback>FR</AvatarFallback>
+            </Avatar>
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <Text size="medium" weight="semibold">
+                  {title}
+                </Text>
+                {points !== undefined && (
+                  <Badge color="yellow" variant="default" size="small">
+                    ⭐ {points.toLocaleString()}
+                  </Badge>
+                )}
+              </div>
+              <div className="mt-1">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Avatar size="small">
+                      <AvatarFallback>MD</AvatarFallback>
+                    </Avatar>
+                    <Text variant="muted" size="small" className="truncate">
+                      Manish Dwivedi
+                    </Text>
+                  </div>
+                  <ArrowRightIcon
+                    className="shrink-0 text-gray-400 dark:text-gray-400"
+                    aria-hidden
+                    size={16}
+                  />
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Avatar size="small">
+                      <AvatarFallback>TR</AvatarFallback>
+                    </Avatar>
+                    <Text variant="muted" size="small" className="truncate">
+                      Tanvi Rajput
+                    </Text>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <button
             type="button"
             aria-label="More options"
-            className={cn(
-              "flex size-8 items-center justify-center rounded-medium",
-              "text-gray-400 transition-colors",
-              "hover:bg-gray-100 hover:text-gray-600",
-              "dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-300",
-            )}
+            className="-m-1 shrink-0 self-start rounded-small p-1 text-gray-500 enabled:hover:bg-gray-100 dark:text-gray-400 dark:enabled:hover:bg-gray-700"
           >
-            <MoreHorizontalIcon className="size-4" aria-hidden />
+            <MoreHorizontalIcon className="size-4" />
           </button>
         </div>
       </div>
 
       <Separator />
 
-      {/* ── Body ── */}
-      <div className="space-y-medium px-large py-medium">
-        {typeof body === "string" ? (
-          <p className="text-medium leading-relaxed text-gray-700 dark:text-gray-300">
-            {body}
-          </p>
-        ) : (
-          <div className="text-medium leading-relaxed text-gray-700 dark:text-gray-300">
-            {body}
+      <div className="p-small sm:p-medium space-y-small">
+        <Text>{body}</Text>
+        {closingLine && <Text weight="medium">{closingLine}</Text>}
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-small">
+            {tags.map((item, index) => (
+              <Badge color="blue" key={index}>
+                {item}
+              </Badge>
+            ))}
           </div>
         )}
-
-        {closingLine && (
-          <p className="font-semibold text-gray-800 dark:text-gray-100">
-            {closingLine}
-          </p>
-        )}
-      </div>
-
-      {/* ── Tags ── */}
-      {tags && tags.length > 0 && (
-        <div className="flex flex-wrap gap-x-small px-large pb-medium">
-          {tags.map((tag) => (
-            <Badge key={tag} color="blue" variant="default" size="small">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-      )}
-
-      {/* ── Engagement row ── (no separator above — padding separates from body) */}
-      <div className="flex items-center gap-medium px-large py-medium">
-        <button
-          type="button"
-          onClick={onReact}
-          aria-label={`${reactionCount} ${reactionCount === 1 ? "reaction" : "reactions"}. Click to react.`}
-          aria-pressed={isReacted}
-          className={cn(
-            "flex items-center gap-x-small rounded-medium text-medium transition-colors",
-            isReacted
-              ? "text-red-600 dark:text-red-400"
-              : "text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400",
-          )}
-        >
-          <HeartIcon
-            className={cn("size-5 transition-all", isReacted && "fill-current")}
-            aria-hidden
-          />
-          <span>
-            {reactionCount} {reactionCount === 1 ? "reaction" : "reactions"}
-          </span>
-        </button>
-
-        <button
-          type="button"
-          aria-label={`${commentCount} ${commentCount === 1 ? "comment" : "comments"}`}
-          className="flex items-center gap-x-small rounded-medium text-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
-        >
-          <MessageCircleIcon className="size-5" aria-hidden />
-          <span>
-            {commentCount} {commentCount === 1 ? "comment" : "comments"}
-          </span>
-        </button>
       </div>
 
       <Separator />
 
-      {/* ── Comment input ── */}
-      <div className="flex items-center gap-small px-large pb-large pt-medium">
-        {currentUser && <UserAvatar user={currentUser} size="sm" />}
-        <TextInput
-          value={comment}
-          onChange={(e) => setComment((e.target as HTMLInputElement).value)}
-          placeholder="Add a comment…"
-          aria-label="Add a comment"
-          size="medium"
-          className="flex-1"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              handleSend();
-            }
-          }}
-        />
-        <button
-          type="button"
-          onClick={handleSend}
-          aria-label="Send comment"
-          disabled={!comment.trim()}
-          className={cn(
-            "flex size-9 shrink-0 items-center justify-center rounded-medium",
-            "text-primary-600 transition-colors",
-            "hover:bg-primary-50 hover:text-primary-700",
-            "dark:text-primary-400 dark:hover:bg-primary-950 dark:hover:text-primary-300",
-            "disabled:cursor-not-allowed disabled:opacity-40",
-          )}
-        >
-          <SendIcon className="size-4" aria-hidden />
-        </button>
+      <div className="px-small py-x-small">
+        <div className="flex flex-col gap-small sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-small">
+            <Button
+              size={"small"}
+              variant={"transparent"}
+              startIcon={<HeartIcon className="size-5" />}
+            >
+              3 reactions
+            </Button>
+            <Button
+              size={"small"}
+              variant={"transparent"}
+              startIcon={<MessageCircleIcon className="size-5" />}
+            >
+              1 comment
+            </Button>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <ClockIcon className="size-3.5 shrink-0" aria-hidden />
+            <Text size="small" variant="muted">
+              {date}
+            </Text>
+          </div>
+        </div>
+      </div>
+
+      <Separator />
+
+      <div className="p-small">
+        <div className="flex items-center gap-small">
+          <Avatar>
+            <AvatarFallback>TR</AvatarFallback>
+          </Avatar>
+          <TextInput
+            aria-label="Add a comment"
+            placeholder="Add a comment"
+            className="min-w-0 flex-1"
+          />
+          <Button
+            aria-label="Send comment"
+            startIcon={<SendIcon className="size-4" />}
+            className="shrink-0"
+          ></Button>
+        </div>
       </div>
     </div>
   );

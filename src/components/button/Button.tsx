@@ -40,15 +40,15 @@ const buttonVariants = cva(
         ],
         transparent: [
           "border-transparent bg-transparent text-gray-800",
-          "enabled:hover:bg-gray-200 enabled:active:bg-gray-300",
+          "enabled:hover:bg-gray-100 enabled:active:bg-gray-200",
           "dark:text-gray-100",
           "dark:enabled:hover:bg-gray-800 dark:enabled:active:bg-gray-700",
         ],
       },
       size: {
-        small: "h-8 px-small text-small",
-        medium: "h-10 px-medium text-medium",
-        large: "h-12 px-medium text-large",
+        small: "h-8 px-small text-x-small",
+        medium: "h-10 px-medium text-small",
+        large: "h-12 px-medium text-base",
       },
       isFullWidth: {
         true: "w-full",

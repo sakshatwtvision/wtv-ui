@@ -16,7 +16,10 @@ const twMerge = extendTailwindMerge({
     theme: {
       // font-size scale  → `text-medium`, `text-x-large`, ...
       text: [
+        '2x-small',
+        'x-small',
         'small',
+        'base',
         'medium',
         'large',
         'x-large',

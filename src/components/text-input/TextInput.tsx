@@ -8,8 +8,8 @@ const textInputVariants = cva(
   [
     "m-0 box-border w-full font-sans",
     "rounded-medium border bg-white text-gray-700",
-    // font-size + paired line-height (Forma fontSizeM / lineHeightM)
-    "text-medium",
+    // base field font size (14px)
+    "text-small",
     // Focus treatment mirrors Button: a focus-visible ring, no Forma glow/shadow.
     "outline-none transition-colors duration-100 ease-out",
     "focus-visible:ring-2 focus-visible:ring-blue-400",
@@ -26,8 +26,8 @@ const textInputVariants = cva(
         small: "h-8 px-x-small",
         // height 40px, padding `10px spacingS` → 12px horizontal
         medium: "h-10 px-small",
-        // height 48px, padding `spacingM` (16px); bumps font to fontSizeL to match Button's large
-        large: "h-12 px-medium text-large",
+        // height 48px, padding `spacingM` (16px); bumps font to 16px to match Button's large
+        large: "h-12 px-medium text-base",
       },
       isInvalid: {
         true: "border-negative-600",

@@ -59,7 +59,7 @@ export function DocSection({
 
 /** Body paragraph. */
 export function DocText({ children }: { children: React.ReactNode }) {
-  return <p className="mt-medium text-large leading-relaxed">{children}</p>;
+  return <p className="mt-medium text-base leading-relaxed">{children}</p>;
 }
 
 /** Inline `code` chip. */
@@ -148,7 +148,7 @@ export function CodeBlock({
       {html ? (
         <div
           className={cn(
-            "shiki-wrapper font-mono text-large leading-relaxed",
+            "shiki-wrapper font-mono text-base leading-relaxed",
             showLineNumbers && "shiki-line-numbers",
           )}
           // Source is our own dev-time code strings, not user content
@@ -156,7 +156,7 @@ export function CodeBlock({
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <pre className="overflow-x-auto p-large font-mono text-large leading-relaxed text-gray-700 dark:text-gray-200">
+        <pre className="overflow-x-auto p-large font-mono text-base leading-relaxed text-gray-700 dark:text-gray-200">
           <code>{code}</code>
         </pre>
       )}

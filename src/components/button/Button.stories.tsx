@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowRight, Plus, SearchIcon } from "lucide-react";
+import { ArrowRight, HeartIcon, Plus, SearchIcon } from "lucide-react";
 import { TextInput } from "../text-input";
 import { Button } from "./Button";
 
@@ -52,7 +52,16 @@ export const Negative: Story = {
 };
 
 export const Transparent: Story = {
-  args: { variant: "transparent", children: "Transparent" },
+  render: () => {
+    return (
+      <Button
+        variant={"transparent"}
+        startIcon={<HeartIcon size={16} className="text-negative-500" />}
+      >
+        2 likes
+      </Button>
+    );
+  },
 };
 
 /** All five variants side by side. */

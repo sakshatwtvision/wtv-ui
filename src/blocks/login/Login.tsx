@@ -92,12 +92,12 @@ function Login({
 
           {/* 2 — Heading + subtitle */}
           <div className="flex flex-col gap-small">
-            <h1 className="text-3x-large font-semibold leading-tight tracking-tight">
+            <h1 className="text-4x-large font-semibold leading-tight tracking-tight">
               Hello,
               <br />
               Welcome Back
             </h1>
-            <p className="text-medium text-gray-500 dark:text-gray-400">
+            <p className="text-small text-gray-500 dark:text-gray-400">
               Access your Incentiwise dashboard to recognize and reward your
               team.
             </p>
