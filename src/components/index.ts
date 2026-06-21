@@ -5,6 +5,7 @@ export * from './button';
 export * from './carousel';
 export * from './checkbox';
 export * from './menu';
+export * from './popover';
 export * from './radio';
 export * from './text-input';
 export * from './separator';

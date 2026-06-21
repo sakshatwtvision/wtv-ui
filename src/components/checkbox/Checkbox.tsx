@@ -106,7 +106,7 @@ export function Checkbox({
           {children && (
             <span
               className={cn(
-                "text-medium leading-[18px] text-gray-800",
+                "text-base leading-[18px] text-gray-800",
                 "dark:text-gray-100",
                 isInvalid && "text-negative-600 dark:text-negative-400",
               )}
