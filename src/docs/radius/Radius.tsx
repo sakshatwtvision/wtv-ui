@@ -169,7 +169,7 @@ export function RadiusPage() {
           <Code>rounded-*</Code> utilities anywhere.
         </DocText>
         <CodeBlock code={USAGE_TSX} />
-        <CodeBlock code={TOKENS_CSS} />
+        <CodeBlock code={TOKENS_CSS} lang="css" />
       </DocSection>
     </DocPage>
   );

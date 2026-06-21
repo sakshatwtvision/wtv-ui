@@ -4,8 +4,12 @@ import type { Decorator, Preview } from "@storybook/react-vite";
 // Pull in the exact stylesheets the app loads, so components render with the
 // real Forma 36 tokens, fonts, dark mode, and the demo Iris brand override.
 import "@fontsource-variable/inter";
+import "@fontsource-variable/geist-mono";
 import "../src/styles/style.css";
 import "../src/styles/iris-brand.css";
+// Shiki code-block overrides (dark mode var swap + line numbers).
+// This file is Storybook-only — it is never imported from src/index.ts.
+import "./shiki.css";
 
 /**
  * Reflects the toolbar's theme/brand globals onto <html>, mirroring how the

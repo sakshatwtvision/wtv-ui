@@ -106,7 +106,7 @@ export function SpacingPage() {
           Reference the tokens directly as CSS variables, or use the spelled-out
           utilities anywhere a Tailwind spacing value is expected.
         </DocText>
-        <CodeBlock code={TOKENS_CSS} />
+        <CodeBlock code={TOKENS_CSS} lang="css" />
         <CodeBlock code={USAGE_TSX} />
       </DocSection>
     </DocPage>

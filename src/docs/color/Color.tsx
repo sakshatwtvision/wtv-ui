@@ -134,7 +134,7 @@ export function ColorPage() {
           palette, so re-pointing <Code>primary</Code> reskins every component
           at once.
         </DocText>
-        <CodeBlock code={ALIAS_CSS} />
+        <CodeBlock code={ALIAS_CSS} lang="css" />
         <CodeBlock code={USAGE_TSX} />
       </DocSection>
     </DocPage>

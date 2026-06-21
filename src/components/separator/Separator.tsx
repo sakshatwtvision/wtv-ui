@@ -18,9 +18,10 @@ export function Separator({
   const isHorizontal = orientation === "horizontal";
 
   // Shared classes for the line segment(s).
+  // border-t/border-l render more consistently than h-px/w-px at fractional DPR values.
   const lineClass = cn(
-    "shrink-0 bg-gray-300 dark:bg-gray-700",
-    isHorizontal ? "h-px flex-1" : "w-px flex-1",
+    "shrink-0 border-gray-300 dark:border-gray-700",
+    isHorizontal ? "flex-1 border-t" : "flex-1 border-l",
   );
 
   if (!text) {
@@ -29,8 +30,8 @@ export function Separator({
         orientation={orientation}
         data-testid={testId}
         className={cn(
-          "shrink-0 bg-gray-300 dark:bg-gray-700",
-          isHorizontal ? "h-px w-full" : "w-px self-stretch",
+          "shrink-0 border-gray-300 dark:border-gray-700",
+          isHorizontal ? "w-full border-t" : "self-stretch border-l",
           className,
         )}
         {...props}

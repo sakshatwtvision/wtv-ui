@@ -11,6 +11,7 @@
  */
 import * as React from "react";
 import { CheckIcon, CopyIcon } from "lucide-react";
+import { createHighlighter } from "shiki";
 import { cn } from "../utils/cn";
 
 /* ------------------------------------------------------------------ *
@@ -71,57 +72,52 @@ export function Code({ children }: { children: React.ReactNode }) {
 }
 
 /* ------------------------------------------------------------------ *
- * Code block (lightweight syntax highlighting + copy)
+ * Code block — Shiki syntax highlighting + copy button
  * ------------------------------------------------------------------ */
 
-type TokenKind = "comment" | "string" | "prop" | "hex" | "tag" | "fn" | "attr";
+// Singleton: one highlighter shared across all CodeBlock instances.
+// Loaded once on module init so the first render is fast.
+type ShikiHighlighter = Awaited<ReturnType<typeof createHighlighter>>;
 
-// On-brand token colors (Forma palette), with dark-mode counterparts.
-const TOKEN_CLASS: Record<TokenKind, string> = {
-  comment: "text-gray-400 italic dark:text-gray-500",
-  string: "text-green-700 dark:text-green-400",
-  prop: "text-purple-600 dark:text-purple-300",
-  hex: "text-orange-600 dark:text-orange-300",
-  tag: "text-primary-700 dark:text-primary-300",
-  fn: "text-primary-600 dark:text-primary-300",
-  attr: "text-red-600 dark:text-red-300",
-};
+let _hlPromise: Promise<ShikiHighlighter> | null = null;
 
-// One ordered pass over the source. Earlier alternatives win, so comments and
-// strings are consumed whole before their contents can match anything else.
-const TOKEN_RE =
-  /(?<comment>\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(?<string>"[^"]*"|'[^']*'|`[^`]*`)|(?<prop>--[\w-]+)|(?<hex>#[0-9a-fA-F]{3,8}\b)|(?<tag><\/?[A-Za-z][\w.]*|\/?>)|(?<fn>\b[A-Za-z_][\w-]*(?=\())|(?<attr>\b[A-Za-z][\w-]*(?==))/g;
-
-function highlight(code: string): React.ReactNode[] {
-  const out: React.ReactNode[] = [];
-  let last = 0;
-  let key = 0;
-  TOKEN_RE.lastIndex = 0;
-  for (let m = TOKEN_RE.exec(code); m; m = TOKEN_RE.exec(code)) {
-    if (m.index > last) out.push(code.slice(last, m.index));
-    const groups = m.groups as Record<TokenKind, string | undefined>;
-    const kind = (Object.keys(TOKEN_CLASS) as TokenKind[]).find(
-      (k) => groups[k] != null,
-    )!;
-    out.push(
-      <span key={key++} className={TOKEN_CLASS[kind]}>
-        {m[0]}
-      </span>,
-    );
-    last = m.index + m[0].length;
-  }
-  if (last < code.length) out.push(code.slice(last));
-  return out;
+function getHighlighter() {
+  return (_hlPromise ??= createHighlighter({
+    themes: ["github-light", "github-dark"],
+    langs: ["tsx", "typescript", "javascript", "jsx", "css", "bash", "json"],
+  }));
 }
+
+// Kick off loading immediately so it's ready by first render.
+getHighlighter();
 
 export function CodeBlock({
   code,
+  lang = "tsx",
+  showLineNumbers = true,
   className,
 }: {
   code: string;
+  /** Shiki language id. Defaults to "tsx". */
+  lang?: string;
+  showLineNumbers?: boolean;
   className?: string;
 }) {
+  const [html, setHtml] = React.useState<string>("");
   const [copied, setCopied] = React.useState(false);
+
+  React.useEffect(() => {
+    getHighlighter()
+      .then((hl) => {
+        setHtml(
+          hl.codeToHtml(code, {
+            lang,
+            themes: { light: "github-light", dark: "github-dark" },
+          }),
+        );
+      })
+      .catch(() => setHtml(""));
+  }, [code, lang]);
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code).then(() => {
@@ -133,7 +129,7 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "group relative mt-medium overflow-hidden rounded-medium bg-gray-100 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800",
+        "group relative mt-medium overflow-hidden rounded-medium bg-gray-50 ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800",
         className,
       )}
     >
@@ -141,7 +137,7 @@ export function CodeBlock({
         type="button"
         onClick={onCopy}
         aria-label={copied ? "Copied" : "Copy code"}
-        className="absolute right-2 top-2 inline-flex size-8 items-center justify-center rounded-small text-gray-500 opacity-0 transition hover:bg-gray-200 hover:text-gray-700 focus-visible:opacity-100 group-hover:opacity-100 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+        className="absolute right-2 top-2 z-10 inline-flex size-8 items-center justify-center rounded-small text-gray-500 opacity-0 transition hover:bg-gray-200 hover:text-gray-700 focus-visible:opacity-100 group-hover:opacity-100 dark:hover:bg-gray-800 dark:hover:text-gray-200"
       >
         {copied ? (
           <CheckIcon className="size-4 text-positive-600 dark:text-positive-400" />
@@ -149,9 +145,21 @@ export function CodeBlock({
           <CopyIcon className="size-4" />
         )}
       </button>
-      <pre className="overflow-x-auto p-large font-mono text-medium leading-relaxed text-gray-700 dark:text-gray-200">
-        <code>{highlight(code)}</code>
-      </pre>
+      {html ? (
+        <div
+          className={cn(
+            "shiki-wrapper font-mono text-large leading-relaxed",
+            showLineNumbers && "shiki-line-numbers",
+          )}
+          // Source is our own dev-time code strings, not user content
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      ) : (
+        <pre className="overflow-x-auto p-large font-mono text-large leading-relaxed text-gray-700 dark:text-gray-200">
+          <code>{code}</code>
+        </pre>
+      )}
     </div>
   );
 }

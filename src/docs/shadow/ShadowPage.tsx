@@ -107,7 +107,7 @@ export function ShadowPage() {
           Reference the tokens as CSS variables in custom stylesheets, or use
           the <Code>shadow-*</Code> utilities directly in className.
         </DocText>
-        <CodeBlock code={TOKENS_CSS} />
+        <CodeBlock code={TOKENS_CSS} lang="css" />
         <CodeBlock code={USAGE_TSX} />
       </DocSection>
     </DocPage>
