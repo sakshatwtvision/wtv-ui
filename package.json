@@ -25,6 +25,11 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "styles": ["./dist/style.d.ts"]
+    }
+  },
   "files": [
     "dist"
   ],
