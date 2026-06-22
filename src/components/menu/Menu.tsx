@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { ChevronRightIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -141,10 +141,10 @@ const itemVariants = cva(
   },
 );
 
-export type MenuItemProps = MenuPrimitive.Item.Props &
-  VariantProps<typeof itemVariants> & {
-    className?: string;
-  };
+export type MenuItemProps = MenuPrimitive.Item.Props & {
+  inset?: boolean;
+  className?: string;
+};
 
 export function MenuItem({ className, inset, ...props }: MenuItemProps) {
   return (
@@ -163,10 +163,10 @@ const labelVariants = cva(
   },
 );
 
-export type MenuLabelProps = MenuPrimitive.GroupLabel.Props &
-  VariantProps<typeof labelVariants> & {
-    className?: string;
-  };
+export type MenuLabelProps = MenuPrimitive.GroupLabel.Props & {
+  inset?: boolean;
+  className?: string;
+};
 
 export function MenuLabel({ className, inset, ...props }: MenuLabelProps) {
   return (
@@ -218,10 +218,10 @@ export function MenuSub(props: MenuSubProps) {
   return <MenuPrimitive.SubmenuRoot {...props} />;
 }
 
-export type MenuSubTriggerProps = MenuPrimitive.SubmenuTrigger.Props &
-  VariantProps<typeof itemVariants> & {
-    className?: string;
-  };
+export type MenuSubTriggerProps = MenuPrimitive.SubmenuTrigger.Props & {
+  inset?: boolean;
+  className?: string;
+};
 
 export function MenuSubTrigger({
   className,

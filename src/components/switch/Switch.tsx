@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 // ─── Variants ───────────────────────────────────────────────────────────────
@@ -53,7 +53,8 @@ const thumbVariants = cva(
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type SwitchProps = VariantProps<typeof trackVariants> & {
+export type SwitchProps = {
+  size?: "base" | "small";
   "aria-label"?: string;
   className?: string;
   children?: React.ReactNode;

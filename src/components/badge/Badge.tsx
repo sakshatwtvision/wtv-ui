@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 const badgeVariants = cva(
@@ -57,12 +57,14 @@ const badgeVariants = cva(
 );
 
 // Omit HTML's legacy `color` attribute so our `color` prop takes its place cleanly.
-export type BadgeProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "color"> &
-  VariantProps<typeof badgeVariants> & {
-    className?: string;
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
-  };
+export type BadgeProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "color"> & {
+  variant?: "default" | "filled";
+  color?: "gray" | "blue" | "green" | "red" | "orange" | "yellow" | "purple";
+  size?: "small" | "medium" | "large";
+  className?: string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+};
 
 export function Badge({
   className,

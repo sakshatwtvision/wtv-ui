@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { LoaderCircleIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -63,18 +63,20 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = ButtonPrimitive.Props &
-  VariantProps<typeof buttonVariants> & {
-    className?: string;
-    /** Disable interaction. Maps to the native `disabled` attribute. */
-    isDisabled?: boolean;
-    /** Show a spinner and block interaction while an action is in flight. */
-    isLoading?: boolean;
-    /** Element rendered before the label (replaced by the spinner while loading). */
-    startIcon?: React.ReactNode;
-    /** Element rendered after the label. */
-    endIcon?: React.ReactNode;
-  };
+export type ButtonProps = ButtonPrimitive.Props & {
+  variant?: "primary" | "secondary" | "positive" | "negative" | "transparent";
+  size?: "small" | "medium" | "large";
+  isFullWidth?: boolean;
+  className?: string;
+  /** Disable interaction. Maps to the native `disabled` attribute. */
+  isDisabled?: boolean;
+  /** Show a spinner and block interaction while an action is in flight. */
+  isLoading?: boolean;
+  /** Element rendered before the label (replaced by the spinner while loading). */
+  startIcon?: React.ReactNode;
+  /** Element rendered after the label. */
+  endIcon?: React.ReactNode;
+};
 
 export function Button({
   className,
