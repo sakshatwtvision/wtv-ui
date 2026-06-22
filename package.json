@@ -1,6 +1,6 @@
 {
   "name": "@sakshatwtvision/wtv-ui",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A component library built on Tailwind CSS v4 and Base UI. Forma 36 inspired",
   "type": "module",
   "publishConfig": {
@@ -21,13 +21,18 @@
     "./styles": {
       "types": "./dist/style.d.ts",
       "default": "./dist/style.css"
+    },
+    "./theme": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.css"
     }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "styles": ["./dist/style.d.ts"]
+      "styles": ["./dist/style.d.ts"],
+      "theme": ["./dist/tokens.d.ts"]
     }
   },
   "files": [
@@ -42,7 +47,7 @@
     "dev": "vite",
     "build:js": "tsup",
     "build:css": "node node_modules/@tailwindcss/cli/dist/index.mjs -i ./src/styles/style.css -o ./dist/style.css --minify",
-    "build": "tsup && node node_modules/@tailwindcss/cli/dist/index.mjs -i ./src/styles/style.css -o ./dist/style.css --minify",
+    "build": "tsup && node scripts/postbuild.mjs && node node_modules/@tailwindcss/cli/dist/index.mjs -i ./src/styles/style.css -o ./dist/style.css --minify",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",

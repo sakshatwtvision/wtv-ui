@@ -24,7 +24,5 @@ export default defineConfig({
     if (!src.startsWith('"use client"')) {
       writeFileSync("./dist/index.js", '"use client";\n' + src);
     }
-    // Stub so `import '@sakshatwtvision/wtv-ui/styles'` resolves in TypeScript
-    writeFileSync("./dist/style.d.ts", "export {};\n");
   },
 });
