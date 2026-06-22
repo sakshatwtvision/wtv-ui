@@ -1,6 +1,6 @@
 {
   "name": "@sakshatwtvision/wtv-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A component library built on Tailwind CSS v4 and Base UI. Forma 36 inspired",
   "type": "module",
   "publishConfig": {
@@ -14,15 +14,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "react-server": "./dist/index.js",
+      "module": "./dist/index.js",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
     },
     "./styles": {
       "types": "./dist/style.d.ts",
       "default": "./dist/style.css"
     }
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
