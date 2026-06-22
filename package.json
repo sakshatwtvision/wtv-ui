@@ -25,6 +25,7 @@
   "files": [
     "dist"
   ],
+  "packageManager": "pnpm@11.6.0",
   "sideEffects": [
     "**/*.css"
   ],
