@@ -1,5 +1,5 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { LoaderCircleIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -63,16 +63,17 @@ const iconButtonVariants = cva(
   },
 );
 
-export type IconButtonProps = ButtonPrimitive.Props &
-  VariantProps<typeof iconButtonVariants> & {
-    className?: string;
-    /** Disable interaction. Maps to the native `disabled` attribute. */
-    isDisabled?: boolean;
-    /** Show a spinner and block interaction while an action is in flight. */
-    isLoading?: boolean;
-    /** Render as a full circle instead of the default rounded square. */
-    isRounded?: boolean;
-  };
+export type IconButtonProps = ButtonPrimitive.Props & {
+  variant?: "primary" | "secondary" | "positive" | "negative" | "transparent";
+  size?: "small" | "medium" | "large";
+  className?: string;
+  /** Disable interaction. Maps to the native `disabled` attribute. */
+  isDisabled?: boolean;
+  /** Show a spinner and block interaction while an action is in flight. */
+  isLoading?: boolean;
+  /** Render as a full circle instead of the default rounded square. */
+  isRounded?: boolean;
+};
 
 export function IconButton({
   className,

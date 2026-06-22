@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -70,28 +70,28 @@ const sizeAdornments = {
   },
 } as const;
 
-export type TextInputProps = Omit<InputPrimitive.Props, "defaultValue" | "size"> &
-  VariantProps<typeof textInputVariants> & {
-    className?: string;
-    /** Default value for an uncontrolled input. */
-    defaultValue?: string;
-    /** Applies disabled styles. Maps to the native `disabled` attribute. */
-    isDisabled?: boolean;
-    /** Applies invalid styles and sets `aria-invalid`. */
-    isInvalid?: boolean;
-    /** Applies read-only styles. Maps to the native `readOnly` attribute. */
-    isReadOnly?: boolean;
-    /** Marks the field as required (`required` + `aria-required`). */
-    isRequired?: boolean;
-    /** Icon rendered inside the field, before the text. */
-    icon?: React.ReactNode;
-    /** Icon rendered inside the field, after the text. Ignored when `type="password"` — the visibility toggle occupies that slot. */
-    endIcon?: React.ReactNode;
-    /** `data-testid` applied to the input. */
-    testId?: string;
-    /** Blur the input when the Escape key is pressed. */
-    willBlurOnEsc?: boolean;
-  };
+export type TextInputProps = Omit<InputPrimitive.Props, "defaultValue" | "size"> & {
+  size?: "small" | "medium" | "large";
+  className?: string;
+  /** Default value for an uncontrolled input. */
+  defaultValue?: string;
+  /** Applies disabled styles. Maps to the native `disabled` attribute. */
+  isDisabled?: boolean;
+  /** Applies invalid styles and sets `aria-invalid`. */
+  isInvalid?: boolean;
+  /** Applies read-only styles. Maps to the native `readOnly` attribute. */
+  isReadOnly?: boolean;
+  /** Marks the field as required (`required` + `aria-required`). */
+  isRequired?: boolean;
+  /** Icon rendered inside the field, before the text. */
+  icon?: React.ReactNode;
+  /** Icon rendered inside the field, after the text. Ignored when `type="password"` — the visibility toggle occupies that slot. */
+  endIcon?: React.ReactNode;
+  /** `data-testid` applied to the input. */
+  testId?: string;
+  /** Blur the input when the Escape key is pressed. */
+  willBlurOnEsc?: boolean;
+};
 
 export function TextInput({
   className,

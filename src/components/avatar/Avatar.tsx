@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 type AvatarSize = "small" | "base" | "medium" | "large";
@@ -27,10 +27,10 @@ const avatarVariants = cva(
   },
 );
 
-export type AvatarProps = AvatarPrimitive.Root.Props &
-  VariantProps<typeof avatarVariants> & {
-    className?: string;
-  };
+export type AvatarProps = AvatarPrimitive.Root.Props & {
+  size?: AvatarSize;
+  className?: string;
+};
 
 export function Avatar({ size = "base", className, ...props }: AvatarProps) {
   const resolved = size ?? "base";

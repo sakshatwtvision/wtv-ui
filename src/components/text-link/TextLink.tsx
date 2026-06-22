@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 const textLinkVariants = cva(
@@ -45,22 +45,22 @@ const textLinkVariants = cva(
   },
 );
 
-export type TextLinkProps = ButtonPrimitive.Props &
-  VariantProps<typeof textLinkVariants> & {
-    className?: string;
-    /** The URL the link navigates to. Omit for button-as-link patterns. */
-    href?: string;
-    /** Anchor target. `_blank` automatically adds `rel="noopener noreferrer"`. */
-    target?: string;
-    /** Overrides the auto-computed `rel` attribute. */
-    rel?: string;
-    /** Icon element (from lucide-react). Sized to `1em` so it scales with text. */
-    icon?: React.ReactElement;
-    /** Whether the icon appears before (`start`) or after (`end`) the label. */
-    alignIcon?: "start" | "end";
-    isDisabled?: boolean;
-    testId?: string;
-  };
+export type TextLinkProps = ButtonPrimitive.Props & {
+  variant?: "primary" | "secondary" | "positive" | "negative" | "white";
+  className?: string;
+  /** The URL the link navigates to. Omit for button-as-link patterns. */
+  href?: string;
+  /** Anchor target. `_blank` automatically adds `rel="noopener noreferrer"`. */
+  target?: string;
+  /** Overrides the auto-computed `rel` attribute. */
+  rel?: string;
+  /** Icon element (from lucide-react). Sized to `1em` so it scales with text. */
+  icon?: React.ReactElement;
+  /** Whether the icon appears before (`start`) or after (`end`) the label. */
+  alignIcon?: "start" | "end";
+  isDisabled?: boolean;
+  testId?: string;
+};
 
 export function TextLink({
   className,

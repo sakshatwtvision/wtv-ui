@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 const textVariants = cva("", {
@@ -54,11 +54,15 @@ const textVariants = cva("", {
   },
 });
 
-export type TextProps = React.HTMLAttributes<HTMLElement> &
-  VariantProps<typeof textVariants> & {
-    as?: "span" | "div" | "p";
-    className?: string;
-  };
+export type TextProps = React.HTMLAttributes<HTMLElement> & {
+  as?: "span" | "div" | "p";
+  size?: "2x-small" | "x-small" | "small" | "base" | "medium" | "large" | "x-large" | "2x-large" | "3x-large" | "4x-large";
+  weight?: "thin" | "extralight" | "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
+  align?: "left" | "center" | "right";
+  wrap?: "wrap" | "nowrap" | "pretty" | "balance";
+  variant?: "default" | "muted" | "primary" | "positive" | "negative" | "warning";
+  className?: string;
+};
 
 export function Text({
   as: Tag = "p",

@@ -1,5 +1,5 @@
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
 const textareaVariants = cva(
@@ -42,26 +42,26 @@ const textareaVariants = cva(
 export type TextareaProps = Omit<
   InputPrimitive.Props,
   "defaultValue" | "size" | "type"
-> &
-  VariantProps<typeof textareaVariants> & {
-    className?: string;
-    /** Default value for an uncontrolled textarea. */
-    defaultValue?: string;
-    /** Applies disabled styles. Maps to the native `disabled` attribute. */
-    isDisabled?: boolean;
-    /** Applies invalid styles and sets `aria-invalid`. */
-    isInvalid?: boolean;
-    /** Applies read-only styles. Maps to the native `readOnly` attribute. */
-    isReadOnly?: boolean;
-    /** Marks the field as required (`required` + `aria-required`). */
-    isRequired?: boolean;
-    /** Visible number of text lines. */
-    rows?: number;
-    /** `data-testid` applied to the textarea. */
-    testId?: string;
-    /** Blur the textarea when the Escape key is pressed. */
-    willBlurOnEsc?: boolean;
-  };
+> & {
+  size?: "small" | "medium" | "large";
+  className?: string;
+  /** Default value for an uncontrolled textarea. */
+  defaultValue?: string;
+  /** Applies disabled styles. Maps to the native `disabled` attribute. */
+  isDisabled?: boolean;
+  /** Applies invalid styles and sets `aria-invalid`. */
+  isInvalid?: boolean;
+  /** Applies read-only styles. Maps to the native `readOnly` attribute. */
+  isReadOnly?: boolean;
+  /** Marks the field as required (`required` + `aria-required`). */
+  isRequired?: boolean;
+  /** Visible number of text lines. */
+  rows?: number;
+  /** `data-testid` applied to the textarea. */
+  testId?: string;
+  /** Blur the textarea when the Escape key is pressed. */
+  willBlurOnEsc?: boolean;
+};
 
 export function Textarea({
   className,
