@@ -17,10 +17,11 @@ export default defineConfig({
     options.conditions = ["module"];
   },
   async onSuccess() {
-    const esmPath = "./dist/index.js";
-    const src = readFileSync(esmPath, "utf-8");
-    if (!src.startsWith('"use client"')) {
-      writeFileSync(esmPath, '"use client";\n' + src);
+    for (const path of ["./dist/index.js", "./dist/index.cjs"]) {
+      const src = readFileSync(path, "utf-8");
+      if (!src.startsWith('"use client"')) {
+        writeFileSync(path, '"use client";\n' + src);
+      }
     }
     // Stub so `import '@sakshatwtvision/wtv-ui/styles'` resolves in TypeScript
     writeFileSync("./dist/style.d.ts", "export {};\n");

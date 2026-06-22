@@ -1,6 +1,6 @@
 {
   "name": "@sakshatwtvision/wtv-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A component library built on Tailwind CSS v4 and Base UI. Forma 36 inspired",
   "type": "module",
   "publishConfig": {
