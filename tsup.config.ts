@@ -1,13 +1,15 @@
 import { defineConfig } from "tsup";
 import { readFileSync, writeFileSync } from "node:fs";
 
+const { version } = JSON.parse(readFileSync("./package.json", "utf-8"));
+
 export default defineConfig({
   entry: {
     index: "src/index.ts",
   },
   format: ["esm", "cjs"],
   dts: true,
-  external: ["react", "react-dom", "react/jsx-runtime"],
+  external: ["react", "react-dom", "react/jsx-runtime", /^@base-ui\/react/, "lucide-react"],
   sourcemap: false,
   clean: true,
   treeshake: true,
@@ -15,6 +17,7 @@ export default defineConfig({
   tsconfig: "./tsconfig.build.json",
   esbuildOptions(options) {
     options.conditions = ["module"];
+    options.define = { __PKG_VERSION__: JSON.stringify(version) };
   },
   async onSuccess() {
     for (const path of ["./dist/index.js", "./dist/index.cjs"]) {
