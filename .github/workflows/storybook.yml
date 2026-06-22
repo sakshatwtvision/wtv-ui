@@ -1,4 +1,4 @@
-name: Storybook Pages
+name: Storybook
 
 on:
   push:
