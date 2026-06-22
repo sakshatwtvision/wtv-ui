@@ -16,7 +16,7 @@ import {
 import { UserIcon } from "lucide-react";
 
 const meta = {
-  title: "Components/Menu",
+  title: "Overlays/Menu",
   component: Menu,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

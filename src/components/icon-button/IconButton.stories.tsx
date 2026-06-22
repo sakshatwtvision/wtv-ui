@@ -8,7 +8,7 @@ import { IconButton } from "./IconButton";
  * Always provide an `aria-label` for accessibility.
  */
 const meta = {
-  title: "Components/IconButton",
+  title: "Buttons/IconButton",
   component: IconButton,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

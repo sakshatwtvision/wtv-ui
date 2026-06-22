@@ -46,7 +46,7 @@ const triggerClass =
  * dress it with Forma 36 tokens so it matches the rest of the library.
  */
 const meta = {
-  title: "Components/Carousel",
+  title: "Layout/Carousel",
   component: Carousel.Root,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ColorPage } from "./Color";
 
 const meta = {
-  title: "Getting Started/Color",
+  title: "Design Language/Color",
   component: ColorPage,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof ColorPage>;

@@ -1,76 +1,50 @@
 # wtv-ui
 
-A production-grade React component library for WTVision products — built on **Tailwind CSS v4**, **Base UI**, and the **Forma 36** design language. Ships as a private GitHub Package, consumed by any React or Next.js application in the organisation.
+A production-grade React component library for WTVision products, built on **Tailwind CSS v4**, **Base UI**, and the **Forma 36** design language. Ships as a private GitHub Package and can be installed in any React or Next.js application in the organisation.
 
-**Live Storybook →** https://sakshatwtvision.github.io/wtv-ui
+**Live Storybook:** https://sakshatwtvision.github.io/wtv-ui
 
 ---
 
 ## Table of Contents
 
 1. [Why this library exists](#why-this-library-exists)
-2. [Component catalogue](#component-catalogue)
-3. [Technology stack](#technology-stack)
-4. [Consumer guide — installing in your project](#consumer-guide--installing-in-your-project)
-   - [Step 1 — get a Personal Access Token](#step-1--get-a-personal-access-token)
-   - [Step 2 — configure your project's registry](#step-2--configure-your-projects-registry)
-   - [Step 3 — install the package](#step-3--install-the-package)
-   - [Step 4 — import and use](#step-4--import-and-use)
-   - [Step 5 — authenticate in your CI/CD pipeline](#step-5--authenticate-in-your-cicd-pipeline)
-5. [Contributor guide — working on this library](#contributor-guide--working-on-this-library)
+2. [Technology stack](#technology-stack)
+3. [Consumer guide](#consumer-guide)
+   - [Step 1 - get a Personal Access Token](#step-1---get-a-personal-access-token)
+   - [Step 2 - configure your project's registry](#step-2---configure-your-projects-registry)
+   - [Step 3 - install the package](#step-3---install-the-package)
+   - [Step 4 - import and use](#step-4---import-and-use)
+   - [Step 5 - authenticate in your CI/CD pipeline](#step-5---authenticate-in-your-cicd-pipeline)
+4. [Contributor guide](#contributor-guide)
    - [Prerequisites](#prerequisites)
    - [Local setup](#local-setup)
    - [Adding a new component](#adding-a-new-component)
    - [Raising a pull request](#raising-a-pull-request)
-6. [Release process and versioning](#release-process-and-versioning)
+5. [Release process and versioning](#release-process-and-versioning)
    - [Semantic versioning policy](#semantic-versioning-policy)
    - [How a release works end-to-end](#how-a-release-works-end-to-end)
    - [Rolling back a bad release in production](#rolling-back-a-bad-release-in-production)
-7. [Branch protection rules](#branch-protection-rules)
-8. [CI/CD pipeline reference](#cicd-pipeline-reference)
-9. [Theming and customisation](#theming-and-customisation)
-10. [Testing strategy — current state and roadmap](#testing-strategy--current-state-and-roadmap)
-11. [Migration to the company organisation](#migration-to-the-company-organisation)
+6. [Branch protection rules](#branch-protection-rules)
+7. [CI/CD pipeline reference](#cicd-pipeline-reference)
+8. [Theming and customisation](#theming-and-customisation)
+9. [Testing strategy](#testing-strategy)
+10. [Migration to the company organisation](#migration-to-the-company-organisation)
 
 ---
 
 ## Why this library exists
 
-Consumer applications used to solve the same UI problems independently — inconsistent buttons, mismatched spacing, duplicated dark-mode logic, conflicting CSS. This library eliminates that by providing a **single, versioned source of truth** for every shared UI primitive.
+Before this library, every product team was solving the same UI problems from scratch. The result was inconsistent buttons across apps, different spacing scales, duplicated dark-mode logic, and no single place to fix a bug that appeared in multiple products.
 
-The consequences of *not* having a shared library are real:
+This library gives every team a shared, versioned set of UI primitives. The practical benefits:
 
-- **Visual inconsistency across products** — brand damage that erodes user trust
-- **Duplicated effort across teams** — every team reinventing the same Button wastes engineering velocity
-- **No single place to fix an accessibility bug** — a WCAG violation in a bespoke component cannot be patched centrally, creating compliance risk
+- A bug fixed here is fixed everywhere that uses the library
+- Every product looks and feels consistent, which strengthens the brand
+- Teams spend less time building common UI and more time on product work
+- Accessibility is handled once, centrally, not repeated in every codebase
 
-Every component in this library is accessible by default, dark-mode aware, fully typed, and themeable without touching library source code.
-
----
-
-## Component catalogue
-
-| Component | Description |
-|-----------|-------------|
-| `Avatar` | User avatar with image and initials fallback |
-| `Badge` | Inline status/label indicator with colour variants |
-| `Button` | Primary interaction control — solid, outline, transparent variants |
-| `CardPanel` | Surface container for grouped content |
-| `Carousel` | Horizontally scrollable content rail |
-| `Checkbox` | Accessible checkbox with controlled and uncontrolled modes |
-| `IconButton` | Icon-only action button |
-| `Menu` | Dropdown menu with keyboard navigation |
-| `Popover` | Anchored floating panel |
-| `Radio` | Radio button for single-selection groups |
-| `Separator` | Visual divider — horizontal and vertical |
-| `SocialButton` | OAuth/social login action button |
-| `Switch` | Toggle control (on/off) |
-| `Text` | Typography primitive with size, weight, and variant props |
-| `TextInput` | Single-line form input |
-| `TextLink` | Accessible anchor element styled to design tokens |
-| `Textarea` | Multi-line form input |
-
-Browse every component with live examples, prop tables, and interaction demos at the **[Storybook](https://sakshatwtvision.github.io/wtv-ui)**.
+Every component is accessible by default, dark-mode aware, fully typed in TypeScript, and themeable without touching this library's source code.
 
 ---
 
@@ -78,56 +52,60 @@ Browse every component with live examples, prop tables, and interaction demos at
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Framework | React 19 + React Compiler | Automatic memoisation — no manual `useMemo`/`useCallback` |
-| Headless primitives | Base UI 1.x | Accessibility and keyboard handling built in, zero styling opinion |
-| Styling | Tailwind CSS v4 | Design tokens as CSS custom properties — reskinnable at runtime without a rebuild |
-| Build | tsup + Tailwind CLI | Dual ESM/CJS output, pre-compiled CSS, no consumer rebuild required |
-| Package manager | pnpm | Strict, fast, workspace-aware — prevents duplicate dependency issues |
-| Docs / playground | Storybook 10 | Stories serve as both living documentation and interaction test fixtures |
+| Framework | React 19 + React Compiler | Automatic memoisation, no manual `useMemo` or `useCallback` |
+| Headless primitives | Base UI 1.x | Accessibility and keyboard handling built in, no styling opinions |
+| Styling | Tailwind CSS v4 | Design tokens as CSS custom properties, reskinnable at runtime without a rebuild |
+| Build | tsup + Tailwind CLI | Dual ESM/CJS output with pre-compiled CSS, no consumer rebuild needed |
+| Package manager | pnpm | Strict, fast, and workspace-aware, prevents duplicate dependency issues |
+| Docs | Storybook 10 | Stories act as both living documentation and manual test fixtures |
 
 ---
 
-## Consumer guide — installing in your project
+## Consumer guide
 
-This package lives on the **GitHub npm registry** (`npm.pkg.github.com`), not on npmjs.com. Authentication is required even to read it — this is intentional to ensure internal packages remain private to the organisation.
+This package lives on the **GitHub npm registry** (`npm.pkg.github.com`), not on npmjs.com. Authentication is required to install it, even in read-only mode. This keeps internal packages private to the organisation.
 
-### Step 1 — get a Personal Access Token
+### Step 1 - get a Personal Access Token
 
-> **Why a PAT?** GitHub Packages requires authentication for private packages. Each developer needs their own token tied to their GitHub identity so access can be audited and revoked individually. Never share tokens or commit them to a repository.
+#### Why you need a PAT
 
-1. Go to **GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)**
+GitHub Packages requires every developer to authenticate with their own token. This means access is tied to a GitHub identity, which can be audited and revoked on an individual basis. Shared tokens or tokens committed to a repository are a security risk and should never be used.
+
+1. Go to **GitHub > Settings > Developer settings > Personal access tokens > Tokens (classic)**
 2. Click **Generate new token (classic)**
-3. Set a meaningful note: `wtv-ui package access — <your name>`
+3. Set a note like: `wtv-ui package access - <your name>`
 4. Set expiry to **90 days** and add a calendar reminder to rotate it before it expires
-5. Check the following scopes:
-   - `repo` — required because the package is hosted on a private repository
-   - `read:packages` — to download packages from the registry
-6. Click **Generate token** and copy it immediately — it is shown only once
+5. Select these scopes:
+   - `repo` - required because the package is linked to a private repository
+   - `read:packages` - to download packages from the registry
+6. Click **Generate token** and copy it immediately. It is only shown once.
 
-Store the token in your operating system's credential manager or password manager. Never store it in a plain text file.
+Store the token in your operating system's credential manager or a password manager. Do not store it in a plain text file.
 
-### Step 2 — configure your project's registry
+### Step 2 - configure your project's registry
 
-Create or update `.npmrc` at the **root of your consumer project** and commit it:
+Create or update `.npmrc` at the root of your consumer project and commit it:
 
 ```ini
 @sakshatwtvision:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
 ```
 
-> **Why an environment variable, not the token directly?** The `.npmrc` file is committed to your repository. If the token were hardcoded, it would be exposed in version history and to every developer with read access — a critical security vulnerability. `${GITHUB_PACKAGES_TOKEN}` is read from the environment at install time, keeping the secret out of the codebase entirely.
+#### Why use an environment variable instead of the token directly
 
-Set the environment variable in your shell profile so it is always available for local development:
+The `.npmrc` file is committed to your repository. If the token were written directly in the file, it would be exposed in git history and visible to anyone with read access to the repo. Using `${GITHUB_PACKAGES_TOKEN}` means the token is read from the environment at install time. The file itself is safe to commit.
+
+Set the environment variable in your shell profile so it is available locally:
 
 ```bash
-# Add to ~/.zshrc or ~/.bashrc, then reload your shell (source ~/.zshrc)
+# Add to ~/.zshrc or ~/.bashrc, then reload your shell
 export GITHUB_PACKAGES_TOKEN=ghp_your_token_here
 ```
 
-### Step 3 — install the package
+### Step 3 - install the package
 
 ```bash
-# pnpm (recommended — matches the library's package manager)
+# pnpm
 pnpm add @sakshatwtvision/wtv-ui
 
 # npm
@@ -137,21 +115,21 @@ npm install @sakshatwtvision/wtv-ui
 yarn add @sakshatwtvision/wtv-ui
 ```
 
-### Step 4 — import and use
+### Step 4 - import and use
 
-**Import the CSS exactly once at your app entry point.** This loads the design tokens, Inter Variable font, and all component styles.
+Import the CSS once at your app entry point. This loads the design tokens, Inter Variable font, and all component styles.
 
 ```tsx
-// React (Vite) — src/main.tsx
+// React (Vite) - src/main.tsx
 import '@sakshatwtvision/wtv-ui/styles';
 ```
 
 ```tsx
-// Next.js App Router — app/layout.tsx
+// Next.js App Router - app/layout.tsx
 import '@sakshatwtvision/wtv-ui/styles';
 ```
 
-Then import components anywhere in your application:
+Then import and use components anywhere:
 
 ```tsx
 import { Button, Badge, TextInput } from '@sakshatwtvision/wtv-ui';
@@ -167,21 +145,23 @@ export function LoginForm() {
 }
 ```
 
-**Next.js specifics:** The package ships pre-compiled JavaScript — no raw TypeScript or JSX — so `transpilePackages` is **not required** in `next.config.js`. The ESM bundle already contains `"use client"` at the top of the file, so all components work correctly inside React Server Component trees without additional configuration.
+**Next.js specifics:** The package ships pre-compiled JavaScript, so `transpilePackages` is not required in `next.config.js`. The ESM bundle already includes `"use client"` at the top, so all components work correctly inside React Server Component trees.
 
-**Dark mode:** The library uses class-based dark mode. Add the `.dark` class to your `<html>` element to activate it — consistent with Tailwind's `darkMode: 'class'` convention. The toggle mechanism (button, system preference listener) is the responsibility of the consuming application.
+**Dark mode:** The library uses class-based dark mode. Add the `.dark` class to your `<html>` element to activate it. How you toggle that class (a button, a system preference listener) is up to the consuming application.
 
-### Step 5 — authenticate in your CI/CD pipeline
+### Step 5 - authenticate in your CI/CD pipeline
 
-When your application runs `pnpm install` inside a GitHub Actions workflow, the runner has no shell profile — it cannot read your local `GITHUB_PACKAGES_TOKEN`. You need to inject the token as a CI secret.
+When your application runs `pnpm install` inside a GitHub Actions workflow, the runner has no shell profile and cannot read your local `GITHUB_PACKAGES_TOKEN`. You need to supply the token as a repository secret.
 
-> **Why a service account token, not a personal token?** If you use your personal PAT as the CI secret and you leave the organisation, your token is revoked and every pipeline that depends on it breaks immediately. A service account (a bot GitHub account) has a token that is independent of any individual's employment status.
+#### Why use a service account, not a personal token
+
+If you use your personal PAT as the CI secret and then leave the organisation, your token is revoked and every pipeline depending on it breaks immediately. A service account is a dedicated GitHub account whose token is independent of any individual's employment. This is standard practice for any CI credential that grants access to shared resources.
 
 **Set up the secret in your consumer repository:**
 
-1. Go to **Settings → Secrets and variables → Actions → New repository secret**
+1. Go to **Settings > Secrets and variables > Actions > New repository secret**
 2. Name: `GITHUB_PACKAGES_TOKEN`
-3. Value: a PAT (classic) with `read:packages` scope, belonging to a service account
+3. Value: a classic PAT with `read:packages` scope, from a service account
 
 **Reference it in your workflow:**
 
@@ -193,38 +173,38 @@ When your application runs `pnpm install` inside a GitHub Actions workflow, the 
     GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_PACKAGES_TOKEN }}
 ```
 
-The `.npmrc` you committed in Step 2 reads `${GITHUB_PACKAGES_TOKEN}` from the environment. This single `env:` line is all that is needed — no modification to `.npmrc` between local and CI.
+The `.npmrc` you committed in Step 2 reads `${GITHUB_PACKAGES_TOKEN}` from the environment, so this single `env:` line is enough. No changes to `.npmrc` are needed between local and CI environments.
 
-**Vercel / other cloud platforms:** Add `GITHUB_PACKAGES_TOKEN` as a build environment variable in your platform dashboard so the deploy-time install step can authenticate.
+**Vercel and other platforms:** Add `GITHUB_PACKAGES_TOKEN` as a build environment variable in your platform dashboard so installs during deployment can authenticate.
 
 ---
 
-## Contributor guide — working on this library
+## Contributor guide
 
 ### Prerequisites
 
-| Tool | Version | Why |
-|------|---------|-----|
+| Tool | Version | Note |
+|------|---------|------|
 | Node.js | 20 LTS or later | Runtime for Vite, tsup, and Storybook |
-| pnpm | 11.x | **Only pnpm.** See warning below. |
-| Git | 2.x | — |
+| pnpm | 11.x | Only pnpm. See the warning below. |
+| Git | 2.x | |
 
-> **Do not use `npm install` or `yarn install` in this repository.** This repo is pnpm-managed (`pnpm-lock.yaml`). Running `npm install` writes a `package-lock.json` and flattens `node_modules`, producing **two copies of React** in the dependency tree. The symptom is `Invalid hook call` errors at runtime, which are difficult to trace back to their root cause. If this happens: delete `package-lock.json` and run `pnpm install`, then restart the dev server.
+**Do not run `npm install` or `yarn install` in this repository.** This repo uses pnpm and has a `pnpm-lock.yaml`. Running `npm install` writes a `package-lock.json` and flattens `node_modules`, which creates two copies of React in the tree. The result is `Invalid hook call` errors at runtime that are hard to trace. If this happens, delete `package-lock.json`, run `pnpm install`, and restart the dev server.
 
 ### Local setup
 
 ```bash
-# 1. Clone the repository
+# Clone the repository
 git clone https://github.com/sakshatwtvision/wtv-ui.git
 cd wtv-ui
 
-# 2. Install dependencies (pnpm only)
+# Install dependencies
 pnpm install
 
-# 3. Start the development playground
+# Start the development playground
 pnpm dev
 
-# 4. Start Storybook (recommended for component work)
+# Start Storybook (recommended when working on components)
 pnpm storybook
 ```
 
@@ -232,68 +212,72 @@ Available scripts:
 
 | Command | What it does |
 |---------|-------------|
-| `pnpm dev` | Vite dev server — `App.tsx` showcase/playground |
+| `pnpm dev` | Vite dev server, the App.tsx showcase |
 | `pnpm storybook` | Storybook on port 6006 |
-| `pnpm build` | Compile JS + CSS → `dist/` |
+| `pnpm build` | Compile JS and CSS into `dist/` |
 | `pnpm lint` | ESLint across all TypeScript files |
-| `pnpm exec tsc -b` | Typecheck only (no emit) |
-| `pnpm build-storybook` | Build Storybook static site |
+| `pnpm exec tsc -b` | Typecheck only, no emit |
+| `pnpm build-storybook` | Build the Storybook static site |
 
 ### Adding a new component
 
-All components follow the same structural pattern. `Button` is the canonical reference implementation — read `src/components/button/Button.tsx` before building anything new.
+All components follow the same structure. Read `src/components/button/Button.tsx` before building anything new, it is the canonical reference.
 
 ```
 src/components/
   YourComponent/
-    YourComponent.tsx     ← implementation + cva variants
-    index.ts              ← barrel: export { YourComponent, type YourComponentProps }
+    YourComponent.tsx     - implementation and cva variants
+    index.ts              - barrel: export { YourComponent, type YourComponentProps }
 ```
 
 **Checklist before raising a PR:**
 
-- [ ] Built on a Base UI primitive — `import { X as XPrimitive } from '@base-ui/react/x'`
-- [ ] Variants defined with `class-variance-authority` — the `cva` object is **not exported**
+- [ ] Built on a Base UI primitive: `import { X as XPrimitive } from '@base-ui/react/x'`
+- [ ] Variants defined with `class-variance-authority`, the `cva` object is not exported
 - [ ] Props type is a `type` alias composed with `&`, not an `interface extends`
-- [ ] Final className: `cn(xVariants({ ...variants, className }))` so consumer classes always win
+- [ ] Final className is `cn(xVariants({ ...variants, className }))` so consumer classes always win
 - [ ] Boolean props use the `is*` prefix: `isDisabled`, `isLoading`, `isFullWidth`
-- [ ] Disabled state uses `enabled:hover:` utilities — no `disabled:hover:` neutralizers
-- [ ] Icons from `lucide-react` using `*Icon` named exports, sized with a token utility (`size-4`)
+- [ ] Disabled state uses `enabled:hover:` utilities, not `disabled:hover:` neutralizers
+- [ ] Icons from `lucide-react` using `*Icon` exports, sized with a token utility like `size-4`
 - [ ] Component exported from `src/components/index.ts`
-- [ ] `.stories.tsx` file with at minimum: Default, AllVariants, and Disabled stories
-- [ ] `pnpm lint` and `pnpm exec tsc -b` both pass with zero errors locally
+- [ ] A `.stories.tsx` file exists with at minimum: Default, AllVariants, and Disabled stories
+- [ ] `pnpm lint` and `pnpm exec tsc -b` both pass with zero errors
 
 ### Raising a pull request
 
-> **Why a pull request for every change?** Direct pushes to `main` are blocked by branch protection. This is not bureaucracy — it is the mechanism that ensures every change is reviewed, CI-validated, and traceable in the audit log. A PR that merges broken code triggers an immediate broken release that affects every consuming application.
+#### Why every change needs a pull request
+
+Direct pushes to `main` are blocked by branch protection rules. This is not process for the sake of process. It is what ensures every change is reviewed, passes CI, and is traceable in the audit log. A change that merges broken code will immediately trigger a broken release that affects every team consuming this library.
 
 ```bash
-# 1. Always branch from latest main
+# Always branch from latest main
 git checkout main && git pull
 git checkout -b feat/your-component-name
 
-# 2. Make changes. Commit with Conventional Commits messages
+# Make changes. Use Conventional Commits for messages
 git commit -m "feat(badge): add purple colour variant"
 git commit -m "fix(button): disabled state not applied when isLoading is true"
 git commit -m "docs(avatar): add controlled story example"
 
-# 3. Push and open the PR on GitHub targeting main
+# Push and open the PR targeting main
 git push -u origin feat/your-component-name
 ```
 
-The `CI` workflow runs automatically on the PR — lint, typecheck, and build must all pass. At least one reviewer approval is required before merging.
+The CI workflow runs automatically on every PR. Lint, typecheck, and build must all pass. At least one reviewer approval is required before merging.
 
 **Commit message convention:**
 
-| Prefix | When to use | SemVer impact |
-|--------|-------------|---------------|
+| Prefix | When to use | Version impact |
+|--------|-------------|----------------|
 | `feat:` | New component or new backward-compatible prop | Minor bump |
-| `fix:` | Bug fix, no API change | Patch bump |
+| `fix:` | Bug fix with no API change | Patch bump |
 | `docs:` | Story or README changes only | No bump |
 | `chore:` | Tooling, CI, dependency updates | No bump |
 | `BREAKING CHANGE:` | Removed prop, renamed export, changed behaviour | Major bump |
 
-> Clear commit messages are not a style preference — they are the audit trail. When a director asks "what changed between the version our app uses and the latest one", the answer lives in `git log` and GitHub Releases, which are generated from commit messages.
+#### Why commit messages matter
+
+Commit messages are the audit trail. When a team asks what changed between the version they are running and the latest one, the answer comes from `git log` and GitHub Releases, which are generated directly from commit messages. Vague messages like "fix stuff" make it impossible to assess upgrade risk.
 
 ---
 
@@ -301,19 +285,21 @@ The `CI` workflow runs automatically on the PR — lint, typecheck, and build mu
 
 ### Semantic versioning policy
 
-This library follows **Semantic Versioning (SemVer)**: `MAJOR.MINOR.PATCH`
+This library follows **Semantic Versioning**: `MAJOR.MINOR.PATCH`
 
-| Segment | Increments when | Meaning for consumers |
-|---------|-----------------|----------------------|
-| **MAJOR** — `2.0.0` | Breaking API change — removed prop, renamed export, changed behaviour | You **must** update your code before upgrading |
-| **MINOR** — `1.3.0` | New component or new backward-compatible prop added | Safe to upgrade — existing code continues to work |
-| **PATCH** — `1.2.4` | Bug fix, internal refactor, style correction | Safe to upgrade — no API changes whatsoever |
+| Segment | When it changes | What it means for your app |
+|---------|-----------------|---------------------------|
+| **MAJOR** (`2.0.0`) | Breaking change: removed prop, renamed export, changed behaviour | You must update your code before upgrading |
+| **MINOR** (`1.3.0`) | New component or new backward-compatible prop | Safe to upgrade, existing code keeps working |
+| **PATCH** (`1.2.4`) | Bug fix, internal refactor, style correction | Safe to upgrade, no API changes |
 
-> **Why SemVer matters at the enterprise level.** Consumer applications pin to a specific version (`@sakshatwtvision/wtv-ui@1.2.4`). Without a versioning contract, a library update could silently break a production application on the next deploy. SemVer is the agreement that tells consuming teams exactly how risky an upgrade is before they take it — major upgrades require engineering time, minor upgrades are low risk, patch upgrades should be routine.
+#### Why SemVer matters
+
+Your application pins to a specific version of this library. Without a clear versioning contract, any library update could silently break your app on the next deploy. SemVer is the agreement that tells you exactly how risky an upgrade is before you take it. Major upgrades need engineering time. Minor and patch upgrades are generally safe to absorb quickly.
 
 ### How a release works end-to-end
 
-Releases are **fully automated** — no manual publish commands after initial setup.
+Releases are fully automated. There are no manual publish steps once the workflow is in place.
 
 ```
 Developer bumps version in package.json inside a feature branch
@@ -322,144 +308,146 @@ Developer bumps version in package.json inside a feature branch
                     ↓
             Merged to main
                     ↓
-      release.yml workflow triggers on push to main
+      release.yml triggers on push to main
                     ↓
-      Reads version from package.json → e.g. "1.3.0"
+      Reads version from package.json
                     ↓
-      Checks: does git tag v1.3.0 already exist?
-         YES → skip entirely (safe to merge non-version PRs)
-         NO  → continue
+      Checks: does git tag v<version> already exist?
+         YES - skip, nothing to do
+         NO  - continue
                     ↓
-    pnpm install → pnpm build → pnpm publish --no-git-checks
+    pnpm install -> pnpm build -> pnpm publish
                     ↓
-      Git tag v1.3.0 created and pushed to origin
+      Git tag created and pushed
                     ↓
-    GitHub Release created with auto-generated changelog
+    GitHub Release created with auto-generated notes
                     ↓
-  Package visible at github.com/sakshatwtvision/wtv-ui → Packages
+  Package visible under the repo's Packages tab
 ```
 
-**To release a new version:**
+**To cut a new release:**
 
-1. In your feature branch, update `"version"` in `package.json` following SemVer
+1. Bump `"version"` in `package.json` inside your feature branch, following SemVer
 2. Raise and merge a PR as normal
-3. The workflow handles everything — no further action is required
+3. The workflow handles everything else
 
 **To verify a release succeeded:**
 
-- Actions tab → green `Release` run
-- Repo sidebar → Packages → `@sakshatwtvision/wtv-ui`
-- Releases tab → new entry with auto-generated changelog
+- Actions tab: look for a green `Release` run
+- Repo sidebar: Packages section shows the new version
+- Releases tab: new entry with auto-generated changelog
 
 ### Rolling back a bad release in production
 
-> **Why a rollback procedure?** A library bug that reaches production can affect every consuming application simultaneously, because they all share the same package. A fast, documented rollback procedure is not pessimism — it is the operational discipline expected of a shared platform.
+#### Why you need a rollback plan
 
-**Immediate rollback — fix the consumer in under 5 minutes:**
+A bug in this library can affect every consuming application at once because they all share the same package. The ability to roll back quickly is not optional, it is a baseline operational requirement for any shared platform component.
 
-The fastest path is in the consuming application, not the library. Pin to the last known-good version:
+**Fastest fix: pin the consumer to the last good version**
+
+This takes under 5 minutes and does not require a library change.
 
 ```bash
 # In the consuming application
-pnpm add @sakshatwtvision/wtv-ui@1.2.3   # the last good version
+pnpm add @sakshatwtvision/wtv-ui@1.2.3
 
-git commit -m "fix: pin wtv-ui to 1.2.3 — 1.2.4 caused regression in Button"
+git commit -m "fix: pin wtv-ui to 1.2.3, version 1.2.4 caused regression in Button"
 git push
 ```
 
-This redeploys the consumer with the previous version. The broken version stays published but no one uses it.
+The consumer redeploys with the previous version. The broken version stays published but no application is using it.
 
-**Follow-up — publish a patch from the library:**
+**Follow-up: publish a patch from the library**
+
+Branch from the last good tag, not from `main`, which contains the bad code.
 
 ```bash
-# Branch from the last good tag — NOT from current main (which has the bad code)
 git checkout v1.2.3
 git checkout -b hotfix/button-disabled-regression
 
-# Apply the minimal fix
-# ...
+# Apply the fix, then bump the version
+# Edit package.json: "1.2.3" -> "1.2.5"
 
-# Bump to the next patch version
-# Edit package.json: "version": "1.2.3" → "1.2.4"
-
-git commit -m "fix(button): correct disabled state regression introduced in 1.2.4"
+git commit -m "fix(button): correct disabled state regression"
 git push origin hotfix/button-disabled-regression
 
-# Open PR → review → merge → CI publishes 1.2.5 automatically
+# Open PR, review, merge. CI publishes 1.2.5 automatically.
 ```
 
-Consuming teams then upgrade from their pinned version to `1.2.5`:
+Teams then upgrade from their pinned version:
 
 ```bash
 pnpm add @sakshatwtvision/wtv-ui@1.2.5
 ```
 
-**What NOT to do:** Never delete or overwrite a published version. GitHub Packages treats published versions as immutable — attempting to republish the same version number results in a `409 Conflict` error and breaks CI. Always increment the version.
+**Important:** Never delete or overwrite a published version. GitHub Packages treats published versions as immutable. Attempting to republish the same version number returns a `409 Conflict` error and breaks CI. Always increment the version.
 
 ---
 
 ## Branch protection rules
 
-> **Why enforce branch protection?** Without it, a single mistaken `git push --force` or an unreviewed direct commit to `main` could publish a broken release to every consuming application before anyone notices. Protection rules make `main` a deployment gate, not just a storage location.
+#### Why branch protection matters
 
-Configure at **Settings → Branches → Add rule → Branch name pattern: `main`**:
+Without protection, a single force push or a direct commit to `main` could publish a broken release before anyone sees it. Branch protection makes `main` a deployment gate. Nothing reaches it without review and passing CI.
+
+Configure at **Settings > Branches > Add rule > Branch name pattern: `main`**:
 
 | Rule | Value | Why |
 |------|-------|-----|
 | Require a pull request before merging | Enabled | No direct commits to `main` |
-| Required approvals | 1 minimum | Peer review catches issues before they ship |
-| Dismiss stale reviews on new commits | Enabled | An approval covers exactly the code reviewed — not a later version of it |
-| Require status checks to pass | Enabled — select `validate` | Broken code cannot reach `main` |
-| Require branches to be up to date before merging | Enabled | Prevents integration failures from diverged branches |
-| Do not allow bypassing the above settings | Enabled | Administrators must also follow the rules — no exceptions |
-| Automatically delete head branches | Enabled | Keeps the branch list clean post-merge |
+| Required approvals | 1 minimum | A second set of eyes catches issues before they ship |
+| Dismiss stale reviews when new commits are pushed | Enabled | An approval is for specific code, not for whatever gets added afterward |
+| Require status checks to pass | Enabled, select `validate` | Broken code cannot reach `main` |
+| Require branches to be up to date | Enabled | Prevents issues from branches that have diverged from `main` |
+| Do not allow bypassing the above settings | Enabled | Admins follow the same rules as everyone else |
+| Automatically delete head branches | Enabled | Keeps the branch list clean after merging |
 
 ---
 
 ## CI/CD pipeline reference
 
-Three workflows run automatically. All live in `.github/workflows/`.
+Three workflows run automatically. They all live in `.github/workflows/`.
 
-### `ci.yml` — Pull Request validation
+### `ci.yml`
 
 **Triggers:** Every pull request targeting `main`
 
-**Steps:** install → lint → typecheck → build
+**Steps:** install, lint, typecheck, build
 
-**Why it matters:** Acts as the merge gate. A PR cannot merge unless all four steps pass. This guarantees `main` always contains code that lints cleanly, typechecks, and produces a valid build artefact.
+This is the merge gate. A PR cannot be merged until all four steps pass. It guarantees that `main` always contains code that lints cleanly, typechecks, and builds successfully.
 
-### `release.yml` — Publish to GitHub Packages
+### `release.yml`
 
-**Triggers:** Every push (merge) to `main`
+**Triggers:** Every push to `main` (i.e. every merge)
 
 **Steps:**
 1. Read `version` from `package.json`
-2. Check if git tag `v<version>` already exists
-3. If tag exists → exit with no action _(idempotent — merging a chore PR does not re-publish)_
-4. If tag absent → install → build → publish → create tag → create GitHub Release
+2. Check whether the git tag `v<version>` already exists
+3. If it exists, exit with no action (merging docs or chore PRs does not trigger a publish)
+4. If it does not exist, install, build, publish, create the git tag, and create a GitHub Release
 
-**Auth:** Uses the workflow's built-in `GITHUB_TOKEN` with `packages: write` declared in the workflow permissions. No developer PAT is stored as a repository secret for publishing.
+Auth is handled by the built-in `GITHUB_TOKEN` with `packages: write` permission. No developer PAT is needed as a repository secret for publishing.
 
-### `storybook-pages.yml` — Deploy documentation
+### `storybook.yml`
 
-**Triggers:** Every push (merge) to `main`
+**Triggers:** Every push to `main`
 
-**Steps:** install → `pnpm build-storybook` → deploy to GitHub Pages
+**Steps:** install, build Storybook, deploy to GitHub Pages
 
-**Output:** `https://sakshatwtvision.github.io/wtv-ui` — always reflects the latest state of `main`. No manual deployment is ever needed.
+The Storybook site at `https://sakshatwtvision.github.io/wtv-ui` always reflects the current state of `main`. No manual deployment is ever needed.
 
 ---
 
 ## Theming and customisation
 
-The library exposes all design tokens as CSS custom properties. Consumer applications can retheme every component without touching library source code or triggering a rebuild.
+All design tokens are CSS custom properties. Consumer applications can retheme every component without modifying library code or running a rebuild.
 
-**Global reskin (entire application):**
+**Global reskin:**
 
 ```css
 /* your-app/src/global.css */
 :root {
-  --color-primary-600: #7c3aed;   /* replace blue primary with purple */
+  --color-primary-600: #7c3aed;
   --color-primary-500: #8b5cf6;
   --color-primary-700: #6d28d9;
 }
@@ -470,7 +458,7 @@ The library exposes all design tokens as CSS custom properties. Consumer applica
 }
 ```
 
-**Scoped reskin (multi-brand, section-level):**
+**Scoped reskin for a specific section or brand:**
 
 ```css
 [data-brand="iris"] {
@@ -478,27 +466,29 @@ The library exposes all design tokens as CSS custom properties. Consumer applica
 }
 ```
 
-This works because Tailwind utilities compile to `var(--color-primary-600)` references, not hardcoded hex values. Consumer CSS is unlayered — it always wins over library tokens, which are in `@layer theme`.
+This works because Tailwind utilities compile to `var(--color-primary-600)` references rather than hardcoded hex values. Consumer CSS is unlayered and always wins over library tokens, which live in `@layer theme`.
 
 ---
 
-## Testing strategy — current state and roadmap
+## Testing strategy
 
 ### Current state
 
-The library currently uses **Storybook as living documentation and manual test fixtures**. Every component has stories covering all variants, all interactive states (disabled, loading, error, focused), and both controlled and uncontrolled modes. These are verified visually during development and PR review, and the Storybook site is publicly available for stakeholder review at any time.
+The library currently uses Storybook as living documentation and manual test fixtures. Every component has stories covering all variants and interactive states (disabled, loading, error, focused) in both controlled and uncontrolled modes. These are reviewed visually during development and PR review, and the Storybook site is publicly available for stakeholder review.
 
-This is a deliberate, pragmatic starting point. Manual story coverage at this stage provides high confidence at low overhead.
+This is a deliberate starting point. Story coverage provides good confidence at low overhead for a library at this stage.
 
 ### Recommended next steps
 
-As consuming teams scale and depend on this library's stability, the following testing layers should be added in priority order.
+The following testing layers should be added as the library and its consumer base grows.
 
 ---
 
-#### Layer 1 — Component unit tests with Vitest + Testing Library
+#### Layer 1 - Component unit tests with Vitest and Testing Library
 
-> **Why Vitest over Jest?** Vitest runs inside Vite's pipeline — the same bundler used in development. This means identical module resolution, identical transforms, and dramatically faster runs. There is no separate Jest transform configuration to maintain for TypeScript, Tailwind, or path aliases.
+##### Why Vitest instead of Jest
+
+Vitest runs inside Vite's pipeline, the same bundler used in development. This means identical module resolution, identical transforms, and significantly faster test runs. There is no separate Jest config to maintain for TypeScript, Tailwind, or path aliases.
 
 **Install:**
 
@@ -540,7 +530,7 @@ export default defineConfig({
 import '@testing-library/jest-dom';
 ```
 
-**Example — `src/components/button/Button.test.tsx`:**
+**Example test (`src/components/button/Button.test.tsx`):**
 
 ```tsx
 import { render, screen } from '@testing-library/react';
@@ -575,7 +565,7 @@ describe('Button', () => {
 });
 ```
 
-Add to `package.json` scripts:
+Add to `package.json`:
 
 ```json
 {
@@ -587,9 +577,11 @@ Add to `package.json` scripts:
 
 ---
 
-#### Layer 2 — Interaction tests inside Storybook with `@storybook/test`
+#### Layer 2 - Interaction tests inside Storybook
 
-> **Why in-browser interaction tests?** Storybook `play` functions simulate real user interactions in an actual browser — click, type, tab, focus. This catches a class of bugs that jsdom cannot: focus trap behaviour in Menus and Popovers, CSS-driven transitions, portal positioning, and anything relying on real layout geometry.
+##### Why in-browser interaction tests
+
+Storybook `play` functions simulate real user interactions in a real browser, not jsdom. This catches bugs that unit tests miss: focus traps in Menus and Popovers, CSS-driven transitions, portal positioning, and anything that depends on actual layout geometry.
 
 **Install:**
 
@@ -597,7 +589,7 @@ Add to `package.json` scripts:
 pnpm add -D @storybook/test @storybook/addon-interactions
 ```
 
-**Example — Checkbox with a `play` function:**
+**Example (`Checkbox.stories.tsx`):**
 
 ```tsx
 import { expect, userEvent, within } from '@storybook/test';
@@ -608,17 +600,15 @@ export const ControlledToggle: Story = {
     const checkbox = canvas.getByRole('checkbox');
 
     await expect(checkbox).not.toBeChecked();
-
     await userEvent.click(checkbox);
     await expect(checkbox).toBeChecked();
-
     await userEvent.click(checkbox);
     await expect(checkbox).not.toBeChecked();
   },
 };
 ```
 
-Run all story interaction tests headlessly in CI:
+Run interaction tests headlessly in CI:
 
 ```bash
 pnpm exec storybook test --ci
@@ -626,15 +616,17 @@ pnpm exec storybook test --ci
 
 ---
 
-#### Layer 3 — Coverage enforcement in CI
+#### Layer 3 - Coverage enforcement in CI
 
-> **Why enforce thresholds in CI, not just locally?** Thresholds that only exist in config files are suggestions. Enforced in CI, they are a hard gate — a PR that drops coverage below the floor cannot merge. This ensures no component ships untested, which matters when that component is used across multiple production applications.
+##### Why enforce thresholds in CI
 
-**Target: 75–85% line coverage**
+A coverage threshold that only lives in a config file is a suggestion. Enforcing it in CI makes it a hard gate: a PR that drops coverage below the minimum cannot be merged. This ensures no component ships untested, which matters when that component is in use across multiple production apps.
 
-The 75% floor ensures meaningful coverage without demanding tests for trivial render-only paths. The 85% ceiling is deliberate — coverage above 85% often means writing tests to satisfy a metric rather than to find real bugs, which wastes engineering time and produces brittle test suites that break on implementation refactors.
+**Target: 75-85% line coverage**
 
-Add to `.github/workflows/ci.yml`:
+The 75% floor means tests cover real code paths, not just the happy path. The 85% ceiling is intentional. Going above it usually means writing tests to chase a number rather than to catch actual bugs, which produces brittle test suites and slows development without improving quality.
+
+Add to `ci.yml`:
 
 ```yaml
 - name: Unit tests with coverage
@@ -647,50 +639,47 @@ Add to `.github/workflows/ci.yml`:
     path: coverage/
 ```
 
-The `thresholds` block in `vitest.config.ts` causes `vitest run --coverage` to exit non-zero if coverage drops below 75% — which fails the CI step and blocks the PR.
+The `thresholds` block in `vitest.config.ts` causes the coverage command to exit with a non-zero code if coverage falls below 75%, which fails the CI step and blocks the PR.
 
 ---
 
-#### What to test — priority guide by component type
+#### What to test, by component type
 
-| Component type | High-priority tests |
-|---------------|---------------------|
-| Interactive (Button, Checkbox, Switch, Radio) | Click activation, keyboard activation (Enter/Space), disabled state blocks interaction, loading state exposes `aria-busy` |
-| Form inputs (TextInput, Textarea) | Value binding, `onChange` fires with correct value, error state renders, placeholder visible when empty |
-| Disclosure (Menu, Popover) | Opens on trigger, closes on Escape, closes on outside click, focus returns to trigger on close |
-| Display only (Badge, Text, Separator) | Renders expected HTML element, correct variant classes applied |
-| Compound (Avatar) | Image renders when `src` valid, fallback renders when `src` fails or is absent |
+| Type | Focus areas |
+|------|-------------|
+| Interactive (Button, Checkbox, Switch, Radio) | Click and keyboard activation, disabled state blocks interaction, loading state sets `aria-busy` |
+| Form inputs (TextInput, Textarea) | Value binding, `onChange` fires correctly, error state renders, placeholder visible when empty |
+| Disclosure (Menu, Popover) | Opens on trigger, closes on Escape, closes on outside click, focus returns to trigger |
+| Display only (Badge, Text, Separator) | Renders the right HTML element, correct variant applied |
+| Compound (Avatar) | Image renders when `src` is valid, fallback renders when `src` fails or is absent |
 
-**What not to test:** Do not test class names, DOM structure, or implementation details. Test observable **behaviour** — what a user or assistive technology would experience. Tests tied to implementation details break on refactors and provide false confidence.
+Test observable behaviour, not implementation details. Do not assert on class names or DOM structure. If a test breaks because you renamed a CSS class but the component still works correctly, the test was testing the wrong thing.
 
 ---
 
 ## Migration to the company organisation
 
-This library is currently hosted under `@sakshatwtvision`. When it moves to the official `@wtvision-labs` organisation:
+This library currently lives under `@sakshatwtvision`. When it moves to the official `@wtvision-labs` organisation:
 
-1. Transfer the GitHub repository (Settings → Danger Zone → Transfer)
-2. Update `package.json` → `"name": "@wtvision-labs/wtv-ui"`
-3. Update `package.json` → `"repository.url"` to the new repo URL
-4. Update consumer `.npmrc` scope: `@wtvision-labs:registry=https://npm.pkg.github.com`
-5. Update `GITHUB_PACKAGES_TOKEN` in all consumer CI secrets (same PAT format, same scopes)
-6. Bump version and merge — CI publishes under the new scope automatically
+1. Transfer the repository on GitHub (Settings > Danger Zone > Transfer)
+2. Update `package.json`: rename to `@wtvision-labs/wtv-ui` and update `repository.url`
+3. Update the `.npmrc` scope in all consumer projects: `@wtvision-labs:registry=https://npm.pkg.github.com`
+4. Update `GITHUB_PACKAGES_TOKEN` secrets in consumer CI pipelines (same token format, same scopes)
+5. Bump the version and merge, CI publishes under the new scope automatically
 
-No component source code changes are required. Previous versions remain accessible under `@sakshatwtvision` for consumers that have not yet migrated their import paths.
+No component code changes are needed. Previous versions remain accessible under `@sakshatwtvision` for teams that have not yet updated their import paths.
 
 ---
 
 ## Internal backlog
 
-The following improvements are tracked for future sprints:
-
-1. Add a `muted` semantic colour variant mirroring gray tones (alongside `primary`, `positive`, `negative`, `warning`)
-2. Audit all components — none should reference literal colour palette variables; only semantic aliases
-3. Standardise `cn()` class ordering: responsive prefixes (`sm:`, `md:`) grouped by property type on separate lines
+1. Add a `muted` semantic colour variant that mirrors the gray tones, alongside `primary`, `positive`, `negative`, and `warning`
+2. Audit all components to ensure none reference literal palette variables directly, only semantic aliases
+3. Standardise `cn()` class ordering so responsive prefixes are grouped consistently
 4. Rename `md:` and `lg:` breakpoints to `medium:` and `large:` to match the spacing token naming convention
 
 ---
 
 ## Licence
 
-Internal — not for public distribution. All rights reserved by WTVision.
+Internal. Not for public distribution. All rights reserved by WTVision.

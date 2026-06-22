@@ -10,7 +10,7 @@ import { TextLink } from "./TextLink";
  * Use the toolbar to flip Light/Dark and the Forma/Iris brand.
  */
 const meta = {
-  title: "Components/TextLink",
+  title: "Typography/TextLink",
   component: TextLink,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

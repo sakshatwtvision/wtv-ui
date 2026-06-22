@@ -3,7 +3,7 @@ import { StarIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react";
 import { Badge } from "./Badge";
 
 const meta = {
-  title: "Components/Badge",
+  title: "Data/Badge",
   component: Badge,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { RadiusPage } from "./Radius";
 
 const meta = {
-  title: "Getting Started/Radius",
+  title: "Design Language/Radius",
   component: RadiusPage,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof RadiusPage>;

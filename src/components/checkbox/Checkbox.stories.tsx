@@ -8,7 +8,7 @@ import { Checkbox } from "./Checkbox";
  * Forma/Iris brand. Every story maps to an example from the Forma 36 docs.
  */
 const meta = {
-  title: "Components/Checkbox",
+  title: "Form/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

@@ -7,7 +7,7 @@ import { Textarea } from "./Textarea";
  * and states. Use the toolbar to flip Light/Dark and the Forma/Iris brand.
  */
 const meta = {
-  title: "Components/Textarea",
+  title: "Form/Textarea",
   component: Textarea,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

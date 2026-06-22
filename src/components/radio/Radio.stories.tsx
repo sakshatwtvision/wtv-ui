@@ -10,7 +10,7 @@ import { RadioGroup } from "./RadioGroup";
  * Use the toolbar to flip Light/Dark and the Forma/Iris brand.
  */
 const meta = {
-  title: "Components/Radio",
+  title: "Form/Radio",
   component: Radio,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

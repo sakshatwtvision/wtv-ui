@@ -4,7 +4,7 @@ import { Text } from "../text";
 import { Popover, PopoverTrigger, PopoverContent } from "./Popover";
 
 const meta = {
-  title: "Components/Popover",
+  title: "Overlays/Popover",
   component: Popover,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

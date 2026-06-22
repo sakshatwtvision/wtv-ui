@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ShadowPage } from "./ShadowPage";
+import { InstallationPage } from "./InstallationPage";
 
 const meta = {
-  title: "Design Language/Shadow",
-  component: ShadowPage,
+  title: "Get Started/Installation",
+  component: InstallationPage,
   parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof ShadowPage>;
+} satisfies Meta<typeof InstallationPage>;
 
 export default meta;
 

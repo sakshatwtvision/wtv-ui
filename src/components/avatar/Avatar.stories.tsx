@@ -3,7 +3,7 @@ import { PlusIcon, CheckIcon } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback, AvatarBadge } from "./Avatar";
 
 const meta = {
-  title: "Components/Avatar",
+  title: "Data/Avatar",
   component: Avatar,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

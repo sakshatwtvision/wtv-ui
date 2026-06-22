@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SpacingPage } from "./Spacing";
 
 const meta = {
-  title: "Getting Started/Spacing",
+  title: "Design Language/Spacing",
   component: SpacingPage,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof SpacingPage>;

@@ -8,7 +8,7 @@ import { TextInput } from "./TextInput";
  * Forma/Iris brand. Every story maps to an example from the Forma 36 docs.
  */
 const meta = {
-  title: "Components/TextInput",
+  title: "Form/TextInput",
   component: TextInput,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

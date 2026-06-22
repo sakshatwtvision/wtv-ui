@@ -4,7 +4,7 @@ import { TextInput } from "../text-input";
 import { Button } from "./Button";
 
 const meta = {
-  title: "Components/Button",
+  title: "Buttons/Button",
   component: Button,
   tags: ["autodocs"],
   parameters: { layout: "centered" },

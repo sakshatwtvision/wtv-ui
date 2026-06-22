@@ -7,7 +7,7 @@ import { Switch } from "./Switch";
  * primitive. Use the toolbar to flip Light/Dark and the Forma/Iris brand.
  */
 const meta = {
-  title: "Components/Switch",
+  title: "Form/Switch",
   component: Switch,
   tags: ["autodocs"],
   parameters: { layout: "centered" },
