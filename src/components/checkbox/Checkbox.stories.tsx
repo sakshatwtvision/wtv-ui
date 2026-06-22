@@ -132,17 +132,20 @@ export const Density: Story = {
 /** Controlled example — the parent owns the checked state. */
 export const Controlled: Story = {
   render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <div className="flex flex-col gap-small">
-        <Checkbox {...args} isChecked={checked} onChange={setChecked}>
-          {checked ? "Checked" : "Unchecked"} — click to toggle
-        </Checkbox>
-        <span className="text-small text-gray-500 dark:text-gray-400">
-          State: {String(checked)}
-        </span>
-      </div>
-    );
+    function ControlledCheckbox() {
+      const [checked, setChecked] = useState(false);
+      return (
+        <div className="flex flex-col gap-small">
+          <Checkbox {...args} isChecked={checked} onChange={setChecked}>
+            {checked ? "Checked" : "Unchecked"} — click to toggle
+          </Checkbox>
+          <span className="text-small text-gray-500 dark:text-gray-400">
+            State: {String(checked)}
+          </span>
+        </div>
+      );
+    }
+    return <ControlledCheckbox />;
   },
 };
 

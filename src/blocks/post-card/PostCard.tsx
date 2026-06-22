@@ -12,9 +12,6 @@ import { Separator } from "../../components/separator";
 import { TextInput } from "../../components/text-input";
 import { cn } from "../../utils/cn";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   Button,
   Text,
 } from "../../components";
@@ -128,13 +125,7 @@ export function PostCard({
       <div className="p-small sm:p-medium">
         <div className="flex justify-between gap-small">
           <div className="flex min-w-0 gap-small sm:gap-medium">
-            <Avatar size="large">
-              <AvatarImage
-                src="https://avatars.githubusercontent.com/u/124599?v=4"
-                alt="avatar-image"
-              />
-              <AvatarFallback>FR</AvatarFallback>
-            </Avatar>
+            <UserAvatar user={fromUser} size="md" />
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <Text size="medium" weight="semibold">
@@ -149,11 +140,9 @@ export function PostCard({
               <div className="mt-1">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <div className="flex min-w-0 items-center gap-2">
-                    <Avatar size="small">
-                      <AvatarFallback>MD</AvatarFallback>
-                    </Avatar>
+                    <UserAvatar user={fromUser} size="sm" />
                     <Text variant="muted" size="small" className="truncate">
-                      Manish Dwivedi
+                      {fromUser.name}
                     </Text>
                   </div>
                   <ArrowRightIcon
@@ -162,11 +151,9 @@ export function PostCard({
                     size={16}
                   />
                   <div className="flex min-w-0 items-center gap-2">
-                    <Avatar size="small">
-                      <AvatarFallback>TR</AvatarFallback>
-                    </Avatar>
+                    <UserAvatar user={toUser} size="sm" />
                     <Text variant="muted" size="small" className="truncate">
-                      Tanvi Rajput
+                      {toUser.name}
                     </Text>
                   </div>
                 </div>
@@ -207,16 +194,18 @@ export function PostCard({
             <Button
               size={"small"}
               variant={"transparent"}
-              startIcon={<HeartIcon className="size-5" />}
+              aria-pressed={isReacted}
+              onClick={onReact}
+              startIcon={<HeartIcon className={cn("size-5", isReacted && "text-negative-500")} />}
             >
-              3 reactions
+              {reactionCount} {reactionCount === 1 ? "reaction" : "reactions"}
             </Button>
             <Button
               size={"small"}
               variant={"transparent"}
               startIcon={<MessageCircleIcon className="size-5" />}
             >
-              1 comment
+              {commentCount} {commentCount === 1 ? "comment" : "comments"}
             </Button>
           </div>
           <div className="flex shrink-0 items-center gap-2">
@@ -232,16 +221,17 @@ export function PostCard({
 
       <div className="p-small">
         <div className="flex items-center gap-small">
-          <Avatar>
-            <AvatarFallback>TR</AvatarFallback>
-          </Avatar>
+          <UserAvatar user={currentUser ?? { name: "You" }} size="sm" />
           <TextInput
             aria-label="Add a comment"
             placeholder="Add a comment"
             className="min-w-0 flex-1"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
           <Button
             aria-label="Send comment"
+            onClick={handleSend}
             startIcon={<SendIcon className="size-4" />}
             className="shrink-0"
           ></Button>

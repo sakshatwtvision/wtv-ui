@@ -116,16 +116,19 @@ export const WithHelpText: Story = {
 /** Controlled example — the parent owns the checked state. */
 export const Controlled: Story = {
   render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <div className="flex flex-col gap-small">
-        <Switch {...args} isChecked={checked} onChange={setChecked}>
-          {checked ? "On" : "Off"} — click to toggle
-        </Switch>
-        <span className="text-small text-gray-500 dark:text-gray-400">
-          State: {String(checked)}
-        </span>
-      </div>
-    );
+    function ControlledSwitch() {
+      const [checked, setChecked] = useState(false);
+      return (
+        <div className="flex flex-col gap-small">
+          <Switch {...args} isChecked={checked} onChange={setChecked}>
+            {checked ? "On" : "Off"} — click to toggle
+          </Switch>
+          <span className="text-small text-gray-500 dark:text-gray-400">
+            State: {String(checked)}
+          </span>
+        </div>
+      );
+    }
+    return <ControlledSwitch />;
   },
 };
