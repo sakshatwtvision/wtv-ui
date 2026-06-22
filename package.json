@@ -1,8 +1,16 @@
 {
-  "name": "wtv-ui",
+  "name": "@sakshatwtvision/wtv-ui",
   "version": "1.0.2",
   "description": "A component library built on Tailwind CSS v4 and Base UI. Forma 36 inspired",
   "type": "module",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakshatwtvision/wtv-ui.git"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
