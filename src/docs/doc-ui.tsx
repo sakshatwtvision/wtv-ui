@@ -151,8 +151,6 @@ export function CodeBlock({
             "shiki-wrapper font-mono text-base leading-relaxed",
             showLineNumbers && "shiki-line-numbers",
           )}
-          // Source is our own dev-time code strings, not user content
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
