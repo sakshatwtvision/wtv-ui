@@ -15,9 +15,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "react-server": "./dist/index.js",
-      "module": "./dist/index.js",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
     "./styles": {
@@ -26,7 +24,6 @@
     }
   },
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
